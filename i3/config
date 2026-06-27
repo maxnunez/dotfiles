@@ -13,9 +13,11 @@ set $term kitty
 bindsym $mod+Return exec $term
 for_window [instance="kitty"] title_format "⌨ terminal"
 
-# ─── App launcher (rofi) ────────────────────────────
-bindsym $mod+d exec rofi -show drun
-bindsym $mod+Shift+d exec rofi -show run
+# ─── Rofi: app launcher, window switcher, commands ──
+bindsym $mod+d exec rofi -show drun       # Lanzar apps
+bindsym $mod+Shift+d exec rofi -show run  # Comandos / terminal
+bindsym $mod+Tab exec rofi -show window   # Cambiar entre ventanas abiertas
+bindsym $mod+Shift+Tab exec rofi -show windowcd  # Navegar ventanas
 
 # ─── Cerrar / salir ─────────────────────────────────
 bindsym $mod+Shift+q kill
