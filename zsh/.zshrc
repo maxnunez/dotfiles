@@ -116,6 +116,11 @@ eval "$(atuin init zsh)"
 
 start_if_needed
 
+# GTK / Qt dark theme
+export GTK_THEME=Adwaita:dark
+export QT_STYLE_OVERRIDE=Adwaita-Dark
+export QT_QPA_PLATFORMTHEME=gtk3
+
 # opencode
 export PATH=/home/max/.opencode/bin:$PATH
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
