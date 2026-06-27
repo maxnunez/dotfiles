@@ -1,0 +1,13 @@
+[user]
+	name = marceloCarrasco
+	email = marcelo.54sml@gmail.com
+[core]
+	editor = nvim
+[color]
+	ui = auto
+[push]
+	default = simple
+[merge]
+	conflictstyle = diff3
+[init]
+	defaultBranch = main

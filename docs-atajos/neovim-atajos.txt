@@ -1,0 +1,130 @@
+═══════════════════════════════════════════════
+     NEOVIM + LAZYVIM — CHULETA DE ATAJOS
+═══════════════════════════════════════════════
+
+El leader key es la barra espaciadora: <Space>
+
+─────────────── BÁSICOS VI ─────────────────
+i            → Insertar (escribir)
+esc          → Volver al modo normal
+:w           → Guardar
+:q           → Salir
+:wq          → Guardar y salir
+:q!          → Salir sin guardar
+u            → Deshacer (undo)
+Ctrl + r     → Rehacer (redo)
+x            → Borrar carácter
+dd           → Borrar línea entera
+yy           → Copiar línea
+p            → Pegar después del cursor
+P            → Pegar antes del cursor
+/            → Buscar texto
+n / N        → Siguiente/anterior resultado
+
+─────────────── MOVIMIENTO ──────────────────
+h / j / k / l    → Izquierda / Abajo / Arriba / Derecha
+w / b            → Siguiente/anterior palabra
+0 / $            → Inicio / fin de línea
+gg / G           → Inicio / fin del archivo
+Ctrl + d / u     → Media página abajo / arriba
+{ / }            → Párrafo anterior / siguiente
+
+─────────────── ABRIR/CERRAR ────────────────
+nvim archivo     → Abrir archivo
+nvim .           → Abrir directorio (Oil)
+:q               → Cerrar (:q! fuerza)
+:wq              → Guardar y cerrar
+:bd              → Cerrar buffer (pestaña)
+
+─────────────── LAZYVIM (Space + tecla) ──────
+APERTURA RÁPIDA:
+Space + e        → Explorador de archivos (Oil)
+Space + f + f    → Buscar archivos por nombre
+Space + f + r    → Archivos recientes
+Space + f + b    → Buscar en buffers abiertos
+Space + f + g    → Buscar texto en todo el proyecto (grep)
+Space + f + h    → Buscar en ayuda de vim
+Space + f + s    → Buscar texto en el archivo actual
+- (guión)        → Abrir directorio actual (Oil)
+
+EDITOR:
+Space + w + v    → Split vertical
+Space + w + s    → Split horizontal
+Space + w + w    → Cambiar de ventana
+Space + w + q    → Cerrar ventana
+Space + w + o    → Cerrar otras ventanas
+Space + q        → Cerrar archivo
+Ctrl + s         → Guardar
+
+GIT:
+Space + g + s    → Status de git (Neogit)
+Space + g + b    → Blame
+Space + g + d    → Diff
+Space + g + c    → Commits
+Space + g + p    → Push
+Space + g + P    → Pull
+Space + g + l    → Log de commits
+Space + g + ?    → Todos los comandos git
+
+CÓDIGO / LSP:
+Space + c + a    → Code action (arreglos rápidos)
+Space + c + r    → Renombrar variable
+Space + c + f    → Formatear código
+Space + c + d    → Ir a definición
+Space + c + t    → Ir a tipo
+Space + c + r    → Referencias
+gd               → Ir a definición (atajo directo)
+K                → Ver documentación
+[ d / ] d        → Ir a error anterior/siguiente
+
+PESTAÑAS (BUFFERS):
+Space + b + n    → Siguiente buffer
+Space + b + p    → Anterior buffer
+Space + b + d    → Cerrar buffer
+Space + b + ?    → Lista de buffers
+Space + b + q    → Cerrar otros buffers
+
+─────────────── PLUGINS INSTALADOS ──────────
+
+Blink (autocompletado):
+  → Se activa solo al escribir. Enter para aceptar.
+
+LazyGit:
+  → Space + g + g  (abre lazygit dentro de neovim)
+
+CodeCompanion (IA):
+  Space + a + c + c  → Chat con IA
+  Space + a + c + i  → Inline assist
+
+Obsidian:
+  Space + o + n   → Nueva nota
+  Space + o + s   → Buscar notas
+  Space + o + o   → Abrir en app
+  Space + o + c   → Check checkbox
+  Space + o + q   → Quick switch
+
+Oil (explorador de archivos):
+  - (guión)       → Abrir explorador
+  Espacio + e     → Alternar explorador
+  Enter            → Abrir archivo/directorio
+  \                → Abrir en modo split vertical
+  -                → Subir un directorio
+  q                → Cerrar explorador
+
+VimBeGood (práctica de vim):
+  :VimBeGood      → Iniciar juego para practicar vim
+
+Precognition:
+  → Muestra en pantalla las teclas que estás presionando
+
+WhichKey:
+  → Esperá un segundo después de Space y te muestra
+     todos los atajos disponibles
+
+─────────────── CONSEJO ─────────────────────
+Dentro de Neovim, presioná Space y esperá 1 segundo
+para ver todos los atajos disponibles.
+
+Si te perdés: q  para cerrar, esc para salir de menús.
+
+═══════════════════════════════════════════════

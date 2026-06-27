@@ -1,0 +1,79 @@
+═══════════════════════════════════════════
+         LAZYGIT — CHULETA DE ATAJOS
+═══════════════════════════════════════════
+
+Arrancar:  lazygit
+
+─────────── PANTALLA PRINCIPAL ──────────────
+1  → Archivos modificados (más usado!)
+2  → Historial de commits (log)
+3  → Rama actual / ramas
+4  → Stash
+5  → Worktrees
+6  → Remotes
+
+─────────── ARCHIVOS (panel 1) ─────────────
+space    → Staggear / desstaggear archivo
+a        → Staggear / desstaggear todo
+c        → Hacer commit
+w        → Hacer commit sin confirmar (rápido)
+e        → Editar archivo (abre en $EDITOR = nvim)
+d        → Descartar cambios del archivo
+D        → Descartar cambios (menú con opciones)
+i        → Ignorar archivo (.gitignore)
+s        → Stash archivos
+S        → Stash include untracked
+r        → Refresh files
+g        → Git reset (soft/mixed/hard)
+enter    → Ver diff del archivo
+tab      → Alternar entre staged/unstaged
+
+─────────── COMMITS (panel 2) ───────────────
+enter    → Ver diff del commit
+space    → Checkout commit
+g        → Reset al commit
+c        → Copiar hash del commit
+r        → Rebase: editar mensaje del commit
+R        → Rebase: rewording
+d        → Rebase: dropear commit
+f        → Rebase: fixup commit con el anterior
+s        → Rebase: squash con el anterior
+e        → Rebase: editar
+p        → Rebase: pick
+m        → Rebase: mover commit arriba/abajo
+A        → Rebase: autosquash
+/        → Filtrar commits por texto
+ctrl+r   → Refrescar log
+
+─────────── RAMAS (panel 3) ─────────────────
+space    → Checkout rama
+n        → Nueva rama
+N        → Nueva rama desde remoto
+d        → Borrar rama
+r        → Rebase sobre rama
+M        → Merge rama
+R        → Rebase: cambiar rama base
+ctrl+s   → Sort ramas
+f        → Fast-forward
+g        → Reset a esta rama
+[ / ]    → Push/pull
+
+─────────── STASH (panel 4) ─────────────────
+space    → Aplicar stash
+d        → Dropear stash
+g        → Pop stash
+r        → Renombrar stash
+
+─────────── GENERAL ─────────────────────────
++ / -    → Expandir/colapsar diff
+[:       → Pestaña anterior
+]:       → Pestaña siguiente
+?        → Ayuda completa
+q        → Salir
+esc      → Atrás / cerrar panel
+
+─────────── DESDE NEOVIM ────────────────────
+:Neogit   → También tenés Neogit integrado en LazyVim
+          (Space + g + ? para ver comandos de git)
+
+═══════════════════════════════════════════

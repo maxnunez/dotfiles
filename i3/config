@@ -1,0 +1,220 @@
+# ─── i3 Config ──────────────────────────────────────
+# Mod = Super (Windows key)
+# Atajos estilo Zellij, terminales, y lo esencial
+
+# ─── Tecla mod ──────────────────────────────────────
+set $mod Mod4
+
+# ─── Font (REQUERIDO) ───────────────────────────────
+font pango:monospace 8
+
+# ─── Terminal ───────────────────────────────────────
+set $term kitty
+bindsym $mod+Return exec $term
+for_window [instance="kitty"] title_format "⌨ terminal"
+
+# ─── App launcher (rofi) ────────────────────────────
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Shift+d exec rofi -show run
+
+# ─── Cerrar / salir ─────────────────────────────────
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m '¿Salir de i3?' -B 'Sí' 'i3-msg exit' -B 'Apagar' 'systemctl poweroff' -B 'Reiniciar' 'systemctl reboot'"
+
+# ─── Navegación entre ventanas (hjkl como vim) ─────
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# ─── Mover ventanas (Shift + hjkl) ──────────────────
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# ─── Split (como Zellij) ────────────────────────────
+bindsym $mod+v split vertical
+bindsym $mod+b split horizontal
+bindsym $mod+f fullscreen toggle
+
+# ─── Layout ─────────────────────────────────────────
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# ─── Pantalla flotante / redimensionar ──────────────
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# ─── Redimensionar (mod + r, luego flechas/hjkl) ───
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# ─── Workspaces (escritorios) ───────────────────────
+set $ws1 "dev"
+set $ws2 "web"
+set $ws3 "term"
+set $ws4 "docs"
+set $ws5 "media"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Ir a workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Mover ventana a workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Navegación entre workspaces
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+Ctrl+Left  workspace prev
+bindsym $mod+Ctrl+Right workspace next
+
+# ─── Scratchpad ────────────────────────────────────
+bindsym $mod+minus move scratchpad
+bindsym $mod+Shift+minus scratchpad show
+
+# ─── Apps rápidas ───────────────────────────────────
+bindsym $mod+Shift+f exec firefox
+bindsym $mod+Shift+n exec nvim
+bindsym $mod+Shift+t exec thunar
+
+# ─── Multimedia ─────────────────────────────────────
+# Teclas físicas de medios (si tenés)
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+# Volumen (Super + flechas)
+bindsym $mod+Up exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+Down exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+m exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Brillo (Super + Shift + flechas)
+bindsym $mod+Shift+Up exec --no-startup-id brightnessctl set +5%
+bindsym $mod+Shift+Down exec --no-startup-id brightnessctl set 5%-
+
+# Reproducción (Super + , .)
+bindsym $mod+Ctrl+space exec --no-startup-id playerctl play-pause
+bindsym $mod+comma exec --no-startup-id playerctl previous
+bindsym $mod+period exec --no-startup-id playerctl next
+
+# ─── Ventanas flotantes ─────────────────────────────
+for_window [class="(?i)Vlc"] floating enable
+for_window [class="(?i)mpv"] floating enable
+for_window [class="(?i)Galculator"] floating enable
+for_window [title="Administrador de archivos"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="(?i)firefox" window_role="About"] floating enable
+
+show_marks no
+
+# ─── Apariencia ─────────────────────────────────────
+# Colores oscuros (como kanagawa_wave)
+set $bg       #1F1F28
+set $fg       #DCD7BA
+set $blue     #7E9CD8
+set $red      #C34043
+set $green    #76946A
+set $yellow   #C0A36E
+set $cyan     #6A9589
+
+client.focused          $blue    $blue    $fg      #000000  $blue
+client.focused_inactive $bg      $bg      #54546D  $bg      $bg
+client.unfocused        $bg      $bg      #54546D  $bg      $bg
+client.urgent           $red     $red     $fg      $red     $red
+
+# Bordes
+new_window 1pixel
+new_float normal
+
+# Gap (espacio entre ventanas)
+gaps inner 3
+gaps outer 2
+
+# Ajustar gaps dinámicamente
+bindsym $mod+Ctrl+plus  gaps inner current plus 5
+bindsym $mod+Ctrl+minus gaps inner current minus 5
+
+# ─── Barra de estado (Polybar) ─────────────────────
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+# ─── Fondo de pantalla ─────────────────────────────
+exec --no-startup-id feh --bg-fill ~/Pictures/backiee-286513-landscape.jpg
+
+# ─── Arrancar apps al inicio ───────────────────────
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id nm-applet
+exec --no-startup-id volumeicon
+
+# ─── Teclado US por defecto ───────────────────────
+exec_always --no-startup-id setxkbmap us
+bindsym $mod+Shift+u exec setxkbmap us
+bindsym $mod+Shift+y exec setxkbmap es
+
+# ─── Compositor ────────────────────────────────────
+# DESACTIVADO: picom con GLX mataba la GPU (27% CPU)
+# Si querés compositor liviano, activá la línea de xcompmgr:
+# exec_always --no-startup-id xcompmgr -C
+# exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+
+# ─── Notificaciones (dunst) ────────────────────────
+exec --no-startup-id dunst
+
+# ─── Screenshots (flameshot) ───────────────────────
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Print exec --no-startup-id flameshot full -p ~/Pictures
+
+# ─── Portapapeles (copyq) ─────────────────────────
+exec --no-startup-id copyq
+bindsym $mod+Ctrl+v exec --no-startup-id copyq show
+
+# ─── Bloqueo de pantalla ──────────────────────────
+exec --no-startup-id xss-lock -- i3lock -c 1F1F28
+bindsym $mod+Shift+x exec --no-startup-id i3lock -c 1F1F28
+
+# ─── Control de volumen gráfico ───────────────────
+bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol

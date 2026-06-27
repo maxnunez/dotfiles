@@ -1,0 +1,72 @@
+═══════════════════════════════════════════
+           ZELLIJ — CHULETA DE ATAJOS
+═══════════════════════════════════════════
+
+Modo fácil: Alt + atajos directos
+Modo completo: Ctrl + g (bloquear) → luego letras
+Modo tmux: Ctrl + a (si venís de tmux)
+
+─────────── DIRECTO (Alt + tecla) ───────────
+Alt + n        → Nuevo panel
+Alt + ← → ↑ ↓ → Moverse entre paneles
+Alt + f        → Paneles flotantes
+Alt + [+       → Layout anterior
+Alt + ]+       → Layout siguiente
+Alt + + / -    → Redimensionar panel
+Alt + i / o    → Mover tab izq/der
+
+─────────── Ctrl + g (modo "locked") ────────
+PANELES:
+Ctrl+g  p  n   → Nuevo panel
+Ctrl+g  p  d   → Nuevo panel abajo
+Ctrl+g  p  r   → Nuevo panel derecha
+Ctrl+g  p  x   → Cerrar panel
+Ctrl+g  p  h/j/k/l → Moverse (izq/abajo/arriba/der)
+Ctrl+g  p  f   → Panel pantalla completa
+Ctrl+g  p  w   → Paneles flotantes
+Ctrl+g  p  e   → Fijar/desfijar panel
+Ctrl+g  p  c   → Renombrar panel
+
+TABS:
+Ctrl+g  t  n   → Nueva pestaña
+Ctrl+g  t  x   → Cerrar pestaña
+Ctrl+g  t  r   → Renombrar pestaña
+Ctrl+g  t  ←/→ → Ir a tab anterior/siguiente
+Ctrl+g  t  1..9 → Ir a tab 1-9
+Ctrl+g  t  b   → Mover panel a nueva tab
+Ctrl+g  t  tab → Alternar entre tabs
+
+REDIMENSIONAR:
+Ctrl+g  r  h/j/k/l → Agrandar panel (izq/abajo/arriba/der)
+Ctrl+g  r  H/J/K/L → Achicar panel
+Ctrl+g  r  + / -   → Agrandar/Achicar
+
+SESIÓN:
+Ctrl+g  o  w   → Administrador de sesiones
+Ctrl+g  q      → Salir de Zellij
+Ctrl+g  d      → Desconectar (detach)
+Ctrl+g  s      → Scroll mode (historial)
+
+─────────── Ctrl + a (modo tmux) ────────────
+Ctrl+a  v  o % → Split derecha
+Ctrl+a  d  o " → Split abajo
+Ctrl+a  c      → Nueva pestaña
+Ctrl+a  x      → Cerrar panel
+Ctrl+a  h/j/k/l → Moverse entre paneles
+Ctrl+a  n/p    → Siguiente/anterior tab
+Ctrl+a  1..9   → Ir a tab
+Ctrl+a  z      → Fullscreen panel
+Ctrl+a  [      → Scroll histórico
+Ctrl+a  D      → Detach
+Ctrl+a  s/w    → Administrador sesiones
+Ctrl+a  ?      → Ayuda en pantalla
+Ctrl+a  q      → Salir
+Ctrl+a  + / -  → Redimensionar
+Ctrl+a  P/T/R/M/O → Modos Zellij (pane/tab/resize/move/session)
+
+─────────── DENTRO DE UN PANEL ──────────────
+Scroll: Ctrl+g + s → flechas / j/k / d (media pág)
+Buscar: Ctrl+g + s + f  →  n = siguiente, p = anterior
+Editar scrollback: Ctrl+g + s + e  (abre en nvim)
+
+═══════════════════════════════════════════

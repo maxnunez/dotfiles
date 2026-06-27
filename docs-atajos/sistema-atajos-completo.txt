@@ -1,0 +1,585 @@
+╔══════════════════════════════════════════════════════════════════╗
+║     SISTEMA COMPLETO — CHULETA DE ATAJOS Y CONFIGURACIÓN       ║
+║     i3wm · Kitty · Neovim · Zellij · LazyGit · Polybar         ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Fecha: 27 Jun 2026
+Sistema: Debian/testing — i3wm 4.24
+
+═══════════════════════════════════════════════════════════════════
+                    1. LO QUE TENÉS INSTALADO
+═══════════════════════════════════════════════════════════════════
+
+┌─ VENTANAS / WM ─────────────────────────────────────────────┐
+│ i3-wm 4.24          → Window manager                         │
+│ i3lock              → Bloqueo de pantalla                    │
+│ i3status            → Barra de estado default                │
+│ xss-lock            → Auto-lock al suspender                 │
+│ xcompmgr            → Compositor liviano (desactivado)       │
+│ picom 12.5          → Compositor (desactivado, muy pesado)   │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ TERMINAL ───────────────────────────────────────────────────┐
+│ Kitty 0.41.1        → Terminal emulador                      │
+│ Zellij 0.44.3       → Multiplexer de terminal                │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ EDITOR / GIT ───────────────────────────────────────────────┐
+│ Neovim 0.12.2       → Editor + LazyVim                       │
+│ LazyGit 0.61.1      → TUI para git                           │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ APPS ───────────────────────────────────────────────────────┐
+│ Rofi 1.7.5          → App launcher                           │
+│ Polybar 3.7.2       → Barra de estado                        │
+│ Dunst 1.12.2        → Notificaciones                         │
+│ Flameshot 12.1      → Screenshots                            │
+│ CopyQ 10.0          → Portapapeles                           │
+│ Feh 3.10.3          → Fondo de pantalla                      │
+│ Pavucontrol         → Control de volumen gráfico             │
+│ Volumeicon          → Ícono de volumen en barra              │
+│ brightnessctl       → Brillo de pantalla                     │
+│ playerctl           → Control de reproducción multimedia     │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ SHELL / TERMINAL TOOLS ─────────────────────────────────────┐
+│ Oh-my-zsh + Powerlevel10k (p10k)  → Prompt                   │
+│ zsh-autocomplete                   → Auto-completado          │
+│ zsh-syntax-highlighting            → Syntax highlight         │
+│ zsh-autosuggestions                → Sugerencias históricas   │
+│ Atuin                              → Historia con búsqueda    │
+│ Zoxide                             → Navegación rápida cd     │
+│ Fzf                                → Búsqueda difusa          │
+│ Bat                                → Cat con syntax highlight │
+│ Eza                                → ls moderno               │
+│ FD                                 → find rápido              │
+│ ripgrep (rg)                       → grep rápido              │
+│ Carapace                           → Auto-completado extra    │
+│ jq                                 → JSON processor           │
+│ Yazi                               → File manager TUI         │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ TOOLCHAINS ─────────────────────────────────────────────────┐
+│ Node.js + npm (via Volta)         → JavaScript               │
+│ Ollama (modelos locales):         → AI local                 │
+│   · qwen2.5:1.5b                                             │
+│   · qwen2.5-coder:1.5b                                       │
+│   · llama3.2:1b                                              │
+│ Homebrew (linuxbrew)              → Package manager          │
+│ Bun                               → JS runtime               │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ OPENCODE ───────────────────────────────────────────────────┐
+│ opencode + Gentle AI + SDD sub-agents                        │
+│   · gentle-orchestrator (primary)                            │
+│   · sdd-apply / sdd-archive / sdd-design                     │
+│   · sdd-explore / sdd-init / sdd-onboard                     │
+│   · sdd-propose / sdd-spec / sdd-tasks / sdd-verify         │
+│ Modelos: deepseek-v4 (default), ollama (local fallback)      │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+                  2. ATAJOS DE TECLADO — i3
+═══════════════════════════════════════════════════════════════════
+
+Mod = Super (tecla Windows)
+
+┌─ TERMINAL ──────────────────────────────────────────────────┐
+│ Mod + Enter       → Abrir Kitty                              │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ LAUNCHER ───────────────────────────────────────────────────┐
+│ Mod + d           → Rofi (lanzador gráfico)                  │
+│ Mod + Shift + d   → Rofi (lanzador de comandos)              │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ CERRAR / SALIR / REINICIAR ─────────────────────────────────┐
+│ Mod + Shift + q   → Cerrar ventana                           │
+│ Mod + Shift + c   → Recargar config de i3                    │
+│ Mod + Shift + r   → Reiniciar i3                             │
+│ Mod + Shift + e   → Menú: salir / apagar / reiniciar         │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ NAVEGACIÓN (VI-LIKE) ──────────────────────────────────────┐
+│ Mod + h           → Focus izquierda                          │
+│ Mod + j           → Focus abajo                              │
+│ Mod + k           → Focus arriba                             │
+│ Mod + l           → Focus derecha                            │
+│ Mod + flechas     → Ídem                                     │
+│ Mod + Shift + h   → Mover ventana a la izquierda             │
+│ Mod + Shift + j   → Mover ventana abajo                      │
+│ Mod + Shift + k   → Mover ventana arriba                     │
+│ Mod + Shift + l   → Mover ventana a la derecha               │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ SPLITS / LAYOUT ───────────────────────────────────────────┐
+│ Mod + v           → Split vertical                           │
+│ Mod + b           → Split horizontal                         │
+│ Mod + f           → Fullscreen toggle                        │
+│ Mod + s           → Layout stacking                          │
+│ Mod + w           → Layout tabbed                            │
+│ Mod + e           → Layout toggle split                      │
+│ Mod + Shift + space → Flotante toggle                        │
+│ Mod + space       → Focus mode toggle                        │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ REDIMENSIONAR (MODE) ──────────────────────────────────────┐
+│ Mod + r           → Entrar en modo resize                    │
+│   (dentro del modo):                                         │
+│   h / j / k / l   → Redimensionar (izq/abajo/arriba/der)    │
+│   Enter / Escape  → Salir del modo resize                    │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ WORKSPACES ────────────────────────────────────────────────┐
+│ Mod + 1..0        → Ir al workspace 1..10                   │
+│ Mod + Shift + 1..0 → Mover ventana al workspace             │
+│ Mod + Tab         → Siguiente workspace                     │
+│ Mod + Shift + Tab → Anterior workspace                      │
+│ Mod + Ctrl + Left → Anterior                                │
+│ Mod + Ctrl + Right→ Siguiente                               │
+│ Mod + -           → Mover a scratchpad                      │
+│ Mod + Shift + -   → Mostrar scratchpad                      │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ APPS RÁPIDAS ──────────────────────────────────────────────┐
+│ Mod + Shift + f   → Firefox                                  │
+│ Mod + Shift + n   → Neovim                                   │
+│ Mod + Shift + t   → Thunar (archivos)                        │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ MULTIMEDIA ────────────────────────────────────────────────┐
+│ Teclas físicas:                                              │
+│   XF86AudioRaiseVolume  → Subir volumen                     │
+│   XF86AudioLowerVolume  → Bajar volumen                     │
+│   XF86AudioMute         → Silenciar                         │
+│   XF86AudioPlay         → Play/Pause                        │
+│   XF86AudioNext         → Siguiente tema                    │
+│   XF86AudioPrev         → Anterior tema                     │
+│   XF86MonBrightnessUp   → Subir brillo                      │
+│   XF86MonBrightnessDown → Bajar brillo                      │
+│                                                              │
+│ Mod + Up / Down     → Subir/bajar volumen                   │
+│ Mod + m             → Silenciar                             │
+│ Mod + Shift + Up    → Subir brillo                          │
+│ Mod + Shift + Down  → Bajar brillo                          │
+│ Mod + Ctrl + space  → Play/Pause                            │
+│ Mod + ,             → Tema anterior                         │
+│ Mod + .             → Tema siguiente                        │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ GAPS ──────────────────────────────────────────────────────┐
+│ Mod + Ctrl + +     → Aumentar gaps                          │
+│ Mod + Ctrl + -     → Disminuir gaps                         │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ TECLADO ───────────────────────────────────────────────────┐
+│ Mod + Shift + u   → Setear teclado US                       │
+│ Mod + Shift + y   → Setear teclado ES                       │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ SCREENSHOTS / CLIPBOARD ───────────────────────────────────┐
+│ Print             → Flameshot GUI                           │
+│ Mod + Print       → Flameshot fullscreen                    │
+│ Mod + Ctrl + v    → Mostrar CopyQ (portapapeles)            │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ BLOQUEO ───────────────────────────────────────────────────┐
+│ Mod + Shift + x   → Bloquear pantalla (i3lock)              │
+│ (Auto-lock con xss-lock al suspender)                       │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ VOLUMEN GRÁFICO ───────────────────────────────────────────┐
+│ Mod + Ctrl + m    → Pavucontrol                             │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+                    3. ATAJOS — KITTY
+═══════════════════════════════════════════════════════════════════
+
+┌─ GENERAL ───────────────────────────────────────────────────┐
+│ Ctrl + Shift + c       → Copiar                             │
+│ Ctrl + Shift + v       → Pegar                              │
+│ Ctrl + Shift + +       → Aumentar tamaño fuente             │
+│ Ctrl + Shift + -       → Disminuir tamaño fuente            │
+│ Ctrl + Shift + 0       → Reset tamaño fuente                │
+│ Ctrl + Shift + t       → Nueva pestaña                      │
+│ Ctrl + Shift + q       → Cerrar pestaña                     │
+│ Ctrl + Shift + ←/→     → Ir a pestaña ant/sig              │
+│ Ctrl + Shift + 1..9    → Ir a pestaña N                     │
+│ Ctrl + Shift + l       → Siguiente layout de terminal       │
+│ Ctrl + Shift + f       → Buscar en pantalla                 │
+└──────────────────────────────────────────────────────────────┘
+
+Theme: Kanagawa Wave oscuro (#1F1F28 bg, #DCD7BA fg)
+Font: IosevkaTerm Nerd Font Mono 12
+
+
+═══════════════════════════════════════════════════════════════════
+                 4. ATAJOS — NEOVIM + LAZYVIM
+═══════════════════════════════════════════════════════════════════
+
+Leader = Space (barra espaciadora)
+
+┌─ VI BÁSICO ──────────────────────────────────────────────────┐
+│ i                 → Modo insertar                            │
+│ Esc               → Modo normal                              │
+│ :w                → Guardar                                  │
+│ :q                → Salir                                    │
+│ :wq               → Guardar y salir                          │
+│ :q!               → Salir sin guardar                        │
+│ u                 → Deshacer (undo)                          │
+│ Ctrl + r          → Rehacer (redo)                           │
+│ x                 → Borrar carácter                          │
+│ dd                → Borrar línea                             │
+│ yy                → Copiar línea                             │
+│ p / P             → Pegar después / antes                    │
+│ /                 → Buscar texto                             │
+│ n / N             → Siguiente / anterior resultado           │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ MOVIMIENTO ────────────────────────────────────────────────┐
+│ h / j / k / l     → Izquierda / Abajo / Arriba / Derecha    │
+│ w / b             → Siguiente / anterior palabra             │
+│ 0 / $             → Inicio / fin de línea                   │
+│ gg / G            → Inicio / fin del archivo                │
+│ Ctrl + d / u      → Media página abajo / arriba             │
+│ { / }             → Párrafo anterior / siguiente             │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ LAZYVIM — APERTURA RÁPIDA (Space + ...) ────────────────────┐
+│ Space + e            → Oil (explorador archivos)             │
+│ Space + f + f        → Buscar archivos por nombre            │
+│ Space + f + r        → Archivos recientes                   │
+│ Space + f + b        → Buscar en buffers                    │
+│ Space + f + g        → Buscar texto en proyecto (grep)       │
+│ Space + f + h        → Buscar en ayuda de vim               │
+│ Space + f + s        → Buscar en archivo actual             │
+│ - (guión)            → Abrir directorio actual (Oil)         │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ EDITOR ────────────────────────────────────────────────────┐
+│ Space + w + v      → Split vertical                         │
+│ Space + w + s      → Split horizontal                       │
+│ Space + w + w      → Cambiar de ventana                     │
+│ Space + w + q      → Cerrar ventana                         │
+│ Space + w + o      → Cerrar otras ventanas                  │
+│ Space + q          → Cerrar archivo                         │
+│ Ctrl + s           → Guardar                                │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ GIT (Space + g + ...) ─────────────────────────────────────┐
+│ Space + g + s      → Neogit status                          │
+│ Space + g + b      → Blame                                  │
+│ Space + g + d      → Diff                                   │
+│ Space + g + c      → Commits                                │
+│ Space + g + p      → Push                                   │
+│ Space + g + P      → Pull                                   │
+│ Space + g + l      → Log de commits                         │
+│ Space + g + g      → Abrir LazyGit dentro de Neovim         │
+│ Space + g + ?      → Todos los comandos git                 │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ LSP / CÓDIGO ──────────────────────────────────────────────┐
+│ Space + c + a      → Code action                            │
+│ Space + c + r      → Renombrar variable                     │
+│ Space + c + f      → Formatear código                       │
+│ Space + c + d      → Ir a definición                        │
+│ Space + c + t      → Ir a tipo                              │
+│ gd                 → Ir a definición (atajo directo)         │
+│ K                  → Ver documentación (hover)              │
+│ [ d / ] d          → Error anterior / siguiente             │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ BUFFERS / PESTAÑAS ────────────────────────────────────────┐
+│ Space + b + n      → Siguiente buffer                       │
+│ Space + b + p      → Anterior buffer                        │
+│ Space + b + d      → Cerrar buffer                          │
+│ Space + b + ?      → Lista de buffers                       │
+│ Space + b + q      → Cerrar otros buffers                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ PLUGINS ───────────────────────────────────────────────────┐
+│ CodeCompanion (IA):                                         │
+│   Space + a + c + c  → Chat con IA                          │
+│   Space + a + c + i  → Inline assist                        │
+│                                                              │
+│ Obsidian:                                                   │
+│   Space + o + n   → Nueva nota                              │
+│   Space + o + s   → Buscar notas                            │
+│   Space + o + o   → Abrir en app                            │
+│   Space + o + c   → Check checkbox                          │
+│   Space + o + q   → Quick switch                            │
+│                                                              │
+│ VimBeGood:                                                  │
+│   :VimBeGood      → Practicar vim                           │
+│                                                              │
+│ WhichKey:                                                   │
+│   Esperá 1 seg tras Space → muestra todos los atajos        │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+                     5. ATAJOS — ZELLIJ
+═══════════════════════════════════════════════════════════════════
+
+Arrancar: zellij
+
+┌─ DIRECTO (Alt + tecla) ─────────────────────────────────────┐
+│ Alt + n        → Nuevo panel                                 │
+│ Alt + ←/↑/↓/→  → Moverse entre paneles                      │
+│ Alt + f        → Paneles flotantes                           │
+│ Alt + [ / ]    → Layout anterior / siguiente                 │
+│ Alt + + / -    → Redimensionar panel                         │
+│ Alt + i / o    → Mover tab izquierda / derecha               │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ Ctrl + g (modo "locked") ──────────────────────────────────┐
+│ PANELES:                                                    │
+│ Ctrl+g → p → n   → Nuevo panel                              │
+│ Ctrl+g → p → d   → Nuevo panel abajo                        │
+│ Ctrl+g → p → r   → Nuevo panel derecha                      │
+│ Ctrl+g → p → x   → Cerrar panel                             │
+│ Ctrl+g → p → h/j/k/l → Moverse entre paneles                │
+│ Ctrl+g → p → f   → Fullscreen panel                         │
+│ Ctrl+g → p → w   → Paneles flotantes                        │
+│                                                              │
+│ TABS:                                                       │
+│ Ctrl+g → t → n   → Nueva pestaña                            │
+│ Ctrl+g → t → x   → Cerrar pestaña                           │
+│ Ctrl+g → t → r   → Renombrar pestaña                        │
+│ Ctrl+g → t → ←/→ → Ir a tab ant/sig                        │
+│ Ctrl+g → t → 1..9→ Ir a tab 1-9                             │
+│                                                              │
+│ REDIMENSIONAR:                                              │
+│ Ctrl+g → r → h/j/k/l → Agrandar panel                       │
+│ Ctrl+g → r → H/J/K/L → Achicar panel                        │
+│                                                              │
+│ SESIÓN:                                                     │
+│ Ctrl+g → o → w   → Session manager                          │
+│ Ctrl+g → q       → Salir                                    │
+│ Ctrl+g → d       → Detach (desconectar)                     │
+│ Ctrl+g → s       → Scroll mode (historial)                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ Ctrl + a (modo tmux) ──────────────────────────────────────┐
+│ Ctrl+a → %        → Split derecha                            │
+│ Ctrl+a → "        → Split abajo                              │
+│ Ctrl+a → c        → Nueva pestaña                            │
+│ Ctrl+a → x        → Cerrar panel                             │
+│ Ctrl+a → h/j/k/l  → Moverse entre paneles                   │
+│ Ctrl+a → n/p      → Siguiente/anterior tab                  │
+│ Ctrl+a → z        → Fullscreen panel                         │
+│ Ctrl+a → [        → Scroll histórico                        │
+│ Ctrl+a → D        → Detach                                   │
+│ Ctrl+a → s/w      → Session manager                          │
+│ Ctrl+a → + / -    → Redimensionar                           │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+                  6. ATAJOS — LAZYGIT
+═══════════════════════════════════════════════════════════════════
+
+Arrancar: lazygit (o Space + g + g desde Neovim)
+
+┌─ PANTALLA PRINCIPAL ────────────────────────────────────────┐
+│ 1  → Archivos modificados                                    │
+│ 2  → Historial de commits                                    │
+│ 3  → Ramas                                                   │
+│ 4  → Stash                                                   │
+│ 5  → Worktrees                                               │
+│ 6  → Remotes                                                 │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ ARCHIVOS (panel 1) ────────────────────────────────────────┐
+│ space       → Staggear / desstaggear                        │
+│ a           → Staggear / desstaggear todo                   │
+│ c           → Hacer commit                                  │
+│ w           → Commit rápido (sin confirmar)                 │
+│ e           → Editar archivo (nvim)                         │
+│ d / D       → Descartar cambios                             │
+│ i           → Ignorar archivo (.gitignore)                  │
+│ s / S       → Stash (con/sin untracked)                     │
+│ r           → Refresh                                       │
+│ g           → Git reset (soft/mixed/hard)                   │
+│ enter       → Ver diff del archivo                          │
+│ tab         → Alternar staged/unstaged                      │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ COMMITS (panel 2) ────────────────────────────────────────┐
+│ enter       → Ver diff del commit                            │
+│ space       → Checkout commit                                │
+│ g           → Reset al commit                                │
+│ c           → Copiar hash                                    │
+│ r / R       → Rebase: editar mensaje / rewording            │
+│ d           → Rebase: dropear commit                         │
+│ f           → Rebase: fixup                                  │
+│ s           → Rebase: squash                                 │
+│ e           → Rebase: editar                                 │
+│ p           → Rebase: pick                                   │
+│ m           → Rebase: mover commit                           │
+│ A           → Autosquash                                     │
+│ /           → Filtrar commits                                │
+│ ctrl+r      → Refrescar log                                  │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ RAMAS (panel 3) ──────────────────────────────────────────┐
+│ space       → Checkout rama                                  │
+│ n / N       → Nueva rama (local / desde remoto)             │
+│ d           → Borrar rama                                    │
+│ r           → Rebase sobre rama                              │
+│ M           → Merge rama                                     │
+│ R           → Cambiar rama base                             │
+│ f           → Fast-forward                                   │
+│ g           → Reset a esta rama                              │
+│ [ / ]       → Push / Pull                                   │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ STASH (panel 4) ──────────────────────────────────────────┐
+│ space       → Aplicar stash                                  │
+│ d           → Dropear stash                                  │
+│ g           → Pop stash                                      │
+│ r           → Renombrar stash                                │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ GENERAL ───────────────────────────────────────────────────┐
+│ + / -       → Expandir/colapsar diff                        │
+│ [ :         → Pestaña anterior                               │
+│ ] :         → Pestaña siguiente                              │
+│ ?           → Ayuda completa                                 │
+│ q           → Salir                                          │
+│ esc         → Atrás / cerrar panel                           │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+            7. ATAJOS — SHELL / ZSH + TOOLS
+═══════════════════════════════════════════════════════════════════
+
+┌─ ZSH ───────────────────────────────────────────────────────┐
+│ Ctrl + r     → Atuin (búsqueda histórica interactiva)       │
+│ Ctrl + r (2) → Fzf search (fallback)                        │
+│ Tab          → zsh-autocomplete (mientras escribís)         │
+│ ↑ / ↓        → zsh-autosuggestions (sugerencias grises)     │
+│ z <parte>    → Zoxide: ir a directorio frecuente            │
+│ zi <parte>   → Zoxide: interactive pick                     │
+│ za <parte>   → Zoxide: agregar directorio manual            │
+│ zq <parte>   → Zoxide: buscar con fzf                       │
+│ Ctrl + t     → Fzf: buscar archivo (inserta path)           │
+│ Alt + c      → Fzf: ir a subdirectorio                      │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ ALIAS ─────────────────────────────────────────────────────┐
+│ ll / la / l  → ls -la / ls -A / ls -CF                      │
+│ update       → sudo apt update && sudo apt upgrade          │
+│ clean        → sudo apt autoremove && sudo apt autoclean    │
+│ fzfbat       → fzf con preview de bat                       │
+│ fzfnvim      → abrir archivo con fzf + neovim               │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ LAZYGIT (desde terminal) ──────────────────────────────────┐
+│ lazygit      → Iniciar lazygit                               │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+          8. COSAS A CORREGIR / MEJORAR
+═══════════════════════════════════════════════════════════════════
+
+┌─ CRÍTICAS ──────────────────────────────────────────────────┐
+│                                                              │
+│ [1] Git config usa nano                                      │
+│     ~/.gitconfig tiene: editor = nano                        │
+│     Debería ser: editor = nvim                               │
+│     (EDITOR=nvim en .zshrc, pero git tiene su propio config) │
+│     Para corregir: git config --global core.editor nvim      │
+│                                                              │
+│ [2] FZF_ALT_COMMAND tiene typo                               │
+│     En ~/.zshrc: --exlude .git (falta la 'c')               │
+│     Debería ser: --exclude .git                              │
+│                                                              │
+│ [3] FZF_DEFAULT_T_COMMAND no es real                         │
+│     No existe como variable de FZF.                          │
+│     Probablemente querías: FZF_ALT_C_COMMAND                 │
+│     (la que usa Alt+C para ir a directorios)                 │
+│                                                              │
+│ [4] PATH duplicado 3 veces                                   │
+│     Al final de .zshrc hay:                                  │
+│     export PATH="$HOME/.local/bin:$PATH"  (x3)               │
+│     Sin efecto práctico pero desprolijo, dejá solo uno.      │
+│                                                              │
+│ [5] Carapace al pedo                                         │
+│     Ya tenés zsh-autocomplete + zsh-autosuggestions.         │
+│     Carapace suma otro layer de completado que puede         │
+│     ralentizar y solaparse. Si no lo usás activamente,       │
+│     commentalo del .zshrc.                                   │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+
+┌─ MEJORAS SUGERIDAS ────────────────────────────────────────┐
+│                                                              │
+│ [6] Rofi sin theme                                           │
+│     No existe ~/.config/rofi/config.rasi                     │
+│     Funciona con defaults pero podrías ponerle un theme      │
+│     consistente con los colores Kanagawa.                    │
+│                                                              │
+│ [7] Sin monitor de sistema                                   │
+│     No tenés btop ni htop.                                   │
+│     Recomendado: sudo apt install btop                       │
+│                                                              │
+│ [8] Sin Rust toolchain                                       │
+│     No tenés cargo ni rustc.                                 │
+│     Si querés compilar cosas Rust:                           │
+│     curl --proto '=https' --tlsv1.2 -sSf                     │
+│         https://sh.rustup.rs | sh                            │
+│                                                              │
+│ [9] Picom desactivado (intencional)                          │
+│     Está bien así. picom con GLX mataba la GPU Intel         │
+│     (27% CPU). Si querés transparencias livianas,            │
+│     descomentá "exec_always xcompmgr -C" en i3/config.      │
+│                                                              │
+│ [10] Polybar minimalist                                      │
+│     Solo tiene i3 + title + date. Si tenés laptop,           │
+│     podrías agregar módulo de battery. Si querés             │
+│     network, el módulo es internal/network.                  │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════
+              9. COLORES DEL TEMA (Kanagawa Wave)
+═══════════════════════════════════════════════════════════════════
+
+Estos son los colores usados en i3, Kitty, Polybar y Dunst:
+
+  Background  → #1F1F28  (casi negro)
+  Foreground  → #DCD7BA  (beige claro)
+  Blue        → #7E9CD8  (acento principal)
+  Red         → #C34043  (errores/urgente)
+  Green       → #76946A  (éxito)
+  Yellow      → #C0A36E  (advertencias)
+  Cyan        → #6A9589
+  Magenta     → #957FB8
+  Dim/Gris    → #54546D  (inactivo/secundario)
+
+Fuente del sistema: IosevkaTerm Nerd Font Mono
+
+
+═══════════════════════════════════════════════════════════════════
+             10. ARCHIVOS DE CONFIGURACIÓN
+═══════════════════════════════════════════════════════════════════
+
+  i3          → ~/.config/i3/config
+  Kitty       → ~/.config/kitty/kitty.conf
+  Polybar     → ~/.config/polybar/config.ini
+  Polybar     → ~/.config/polybar/launch.sh
+  Picom       → ~/.config/picom/picom.conf
+  Dunst       → ~/.config/dunst/dunstrc
+  Zsh         → ~/.zshrc
+  Powerlevel10k → ~/.p10k.zsh
+  Git         → ~/.gitconfig
+  opencode    → ~/.config/opencode/opencode.json
+
+═══════════════════════════════════════════════════════════════════
