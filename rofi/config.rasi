@@ -1,117 +1,228 @@
+/* Rofi 1.7.5 — Kanagawa Dark minimal */
+configuration {
+    modi:                       "drun,run,window";
+    font:                       "IosevkaTerm Nerd Font Mono 10";
+    show-icons:                 true;
+    icon-theme:                 "Papirus";
+    terminal:                   "kitty";
+    drun-display-format:        "{name}";
+    display-drun:               "Apps";
+    display-run:                "Run";
+    display-window:             "Window";
+}
+
 * {
-    /* ─── Kanagawa Wave colors ───────────────── */
-    bg:             #1F1F28;
-    bg-alt:         #2A2A37;
-    fg:             #DCD7BA;
-    fg-alt:         #54546D;
-    blue:           #7E9CD8;
-    red:            #C34043;
-    green:          #76946A;
-    yellow:         #C0A36E;
-    cyan:           #6A9589;
-    magenta:        #957FB8;
-    white:          #DCD7BA;
+    /* Kanagawa palette */
+    background:          #1F1F28;
+    background-alt:      #2A2A37;
+    foreground:          #DCD7BA;
+    foreground-alt:      #72727A;
+    selected-bg:         #7E9CD8;
+    selected-fg:         #FFFFFF;
+    lightfg:             #1F1F28;
+    lightbg:             #2A2A37;
+    red:                 #C34043;
+    blue:                #7E9CD8;
+    separatorcolor:      #363646;
 
-    /* ─── Font ──────────────────────────────── */
-    font:           "IosevkaTerm Nerd Font Mono 11";
+    font:                "IosevkaTerm Nerd Font Mono 10";
+    width:               460;
+    border:              0;
+    border-radius:       0;
+    spacing:             2;
+    padding:             4;
+    background-color:    transparent;
+}
 
-    /* ─── Window ────────────────────────────── */
-    background-color:    @bg;
-    border-color:        @blue;
-    border-radius:       8;
-    border:              2;
-    width:               600;
-    padding:             12;
-    spacing:             8;
-    cursor:              "default";
+window {
+    background-color:    @background;
+    border:              1;
+    border-color:        @selected-bg;
+    padding:             8;
+    width:               @width;
+}
 
-    /* ─── Input bar ─────────────────────────── */
-    inputbar {
-        background-color: @bg-alt;
-        border-radius:    6;
-        padding:          8;
-        spacing:          8;
-        children:         [ "entry", "case-indicator" ];
-    }
-    entry {
-        background-color: transparent;
-        text-color:       @fg;
-        placeholder-color:@fg-alt;
-        cursor:           "text";
-    }
-    case-indicator {
-        background-color: transparent;
-        text-color:       @fg-alt;
-    }
+mainbox {
+    padding:             0;
+    border:              0;
+}
 
-    /* ─── List view ─────────────────────────── */
-    listview {
-        background-color: transparent;
-        columns:          1;
-        lines:            8;
-        cycle:            true;
-        dynamic:          true;
-        scrollbar:        true;
-        scrollbar-width:  6;
-        spacing:          4;
-    }
+inputbar {
+    background-color:    @background-alt;
+    padding:             6;
+    spacing:             6;
+    children:            [entry, case-indicator];
+}
 
-    /* ─── Elements ──────────────────────────── */
-    element {
-        background-color: transparent;
-        text-color:       @fg;
-        padding:          8;
-        border-radius:    6;
-        cursor:           "pointer";
-    }
-    element selected {
-        background-color: @blue;
-        text-color:       @bg;
-    }
-    element-icon {
-        size:             1em;
-        padding:          0 8 0 0;
-        vertical-align:   0.5;
-    }
-    element-text {
-        vertical-align:   0.5;
-        text-color:       inherit;
-    }
+entry {
+    background-color:    inherit;
+    foreground:          @foreground;
+    text-color:          @foreground;
+    placeholder-color:   @foreground-alt;
+    placeholder:         "Buscar…";
+}
 
-    /* ─── Sidebar (modi tabs) ──────────────── */
-    sidebar {
-        background-color: @bg-alt;
-        border-radius:    6;
-        padding:          4;
-        spacing:          4;
-    }
-    button {
-        background-color: transparent;
-        text-color:       @fg-alt;
-        padding:          6;
-        border-radius:    4;
-        cursor:           "pointer";
-    }
-    button selected {
-        background-color: @blue;
-        text-color:       @bg;
-    }
+case-indicator {
+    foreground:          @foreground-alt;
+    text-color:          @foreground-alt;
+    padding:             0 4 0 0;
+}
 
-    /* ─── Message ───────────────────────────── */
-    message {
-        background-color: @bg-alt;
-        border-radius:    6;
-        padding:          8;
-    }
-    textbox {
-        text-color:       @fg;
-    }
+listview {
+    columns:             1;
+    lines:               8;
+    cycle:               true;
+    dynamic:             true;
+    scrollbar:           false;
+    spacing:             2;
+    padding:             4 0 0 0;
+    border:              0;
+}
 
-    /* ─── Error / prompt ────────────────────── */
-    error-message {
-        background-color: @red;
-        text-color:       @fg;
-        padding:          8;
-        border-radius:    6;
-    }
+element {
+    padding:             5 8;
+    foreground:          @foreground;
+    background-color:    @background;
+    spacing:             5;
+    border:              0;
+    cursor:              pointer;
+}
+
+element normal.normal {
+    background-color:    @background;
+    text-color:          @foreground;
+}
+
+element normal.urgent {
+    background-color:    @background;
+    text-color:          @red;
+}
+
+element normal.active {
+    background-color:    @background-alt;
+    text-color:          @blue;
+}
+
+element selected {
+    background-color:    @selected-bg;
+    foreground:          @selected-fg;
+    cursor:              pointer;
+}
+
+element selected.normal {
+    background-color:    @selected-bg;
+    text-color:          @selected-fg;
+}
+
+element selected.urgent {
+    background-color:    @red;
+    text-color:          @selected-fg;
+}
+
+element selected.active {
+    background-color:    @selected-bg;
+    text-color:          @selected-fg;
+}
+
+element alternate.normal {
+    background-color:    @background;
+    text-color:          @foreground;
+}
+
+element alternate.urgent {
+    background-color:    @background;
+    text-color:          @red;
+}
+
+element alternate.active {
+    background-color:    @background-alt;
+    text-color:          @blue;
+}
+
+element-text {
+    background-color:    transparent;
+    text-color:          inherit;
+    vertical-align:      0.5;
+    cursor:              inherit;
+    highlight:           inherit;
+}
+
+element-icon {
+    background-color:    transparent;
+    padding:             0 6 0 0;
+    size:                0.8em;
+    text-color:          inherit;
+    cursor:              inherit;
+}
+
+scrollbar {
+    width:               0;
+    padding:             0;
+    handle-width:        0;
+    border:              0;
+}
+
+sidebar {
+    border:              0;
+    padding:             4;
+    spacing:             2;
+}
+
+button {
+    cursor:              pointer;
+    text-color:          @foreground-alt;
+    spacing:             0;
+    background-color:    transparent;
+    padding:             4 8;
+}
+
+button selected {
+    background-color:    @selected-bg;
+    text-color:          @selected-fg;
+}
+
+message {
+    background-color:    @background-alt;
+    border:              0;
+    padding:             6;
+}
+
+textbox {
+    foreground:          @foreground;
+    text-color:          @foreground;
+    padding:             6;
+}
+
+error-message {
+    background-color:    @red;
+    foreground:          #FFFFFF;
+    padding:             6;
+}
+
+textbox-prompt-colon {
+    text-color:          inherit;
+    str:                 ":";
+    expand:              false;
+    margin:              0 0.3em 0 0;
+}
+
+prompt {
+    text-color:          @foreground-alt;
+    spacing:             0;
+}
+
+num-filtered-rows {
+    text-color:          @foreground-alt;
+    expand:              false;
+}
+
+num-rows {
+    text-color:          @foreground-alt;
+    expand:              false;
+}
+
+textbox-num-sep {
+    text-color:          @foreground-alt;
+    str:                 "/";
+    expand:              false;
 }
