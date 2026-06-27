@@ -50,6 +50,19 @@ bindsym $mod+e layout toggle split
 # ─── Pantalla flotante / redimensionar ──────────────
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
+# Sticky: ventana visible en todos los workspaces
+bindsym $mod+Shift+s sticky toggle
+
+# ─── Scratchpad mejorado (toggle único) ─────────────
+# Mod + minus: mueve a scratchpad si está visible, muestra si está oculto
+bindsym $mod+minus move scratchpad
+bindsym $mod+Shift+minus scratchpad show
+# Alternativa: mover ventana a scratchpad y mostrarla con un solo atajo
+bindsym $mod+grave scratchpad show
+
+# ─── Mover ventana a workspace y seguirlo ───────────
+bindsym $mod+Shift+BackSpace move workspace to output left; workspace prev
+# Mover ventana a otro output / monitor
 
 # ─── Redimensionar (mod + r, luego flechas/hjkl) ───
 mode "resize" {
@@ -104,10 +117,14 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Navegación entre workspaces
-bindsym $mod+Tab workspace next
+bindsym $mod+Tab workspace back_and_forth  # Volver al workspace anterior
 bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+Ctrl+Left  workspace prev
 bindsym $mod+Ctrl+Right workspace next
+
+# Navegar contenedores padre/hijo
+bindsym $mod+a focus parent
+bindsym $mod+z focus child
 
 # ─── Scratchpad ────────────────────────────────────
 bindsym $mod+minus move scratchpad
