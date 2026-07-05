@@ -8,6 +8,9 @@ set $mod Mod4
 # ─── Font (REQUERIDO) ───────────────────────────────
 font pango:monospace 8
 
+# ─── Mouse ─────────────────────────────────────────
+focus_follows_mouse no
+
 # ─── Terminal ───────────────────────────────────────
 set $term kitty
 bindsym $mod+Return exec $term
@@ -16,8 +19,7 @@ for_window [instance="kitty"] title_format "⌨ terminal"
 # ─── Rofi: app launcher, window switcher, commands ──
 bindsym $mod+d exec rofi -show drun       # Lanzar apps
 bindsym $mod+Shift+d exec rofi -show run  # Comandos / terminal
-bindsym $mod+Tab exec rofi -show window   # Cambiar entre ventanas abiertas
-bindsym $mod+Shift+Tab exec rofi -show windowcd  # Navegar ventanas
+bindsym $mod+Shift+w exec rofi -show window  # Cambiar entre ventanas abiertas
 
 # ─── Cerrar / salir ─────────────────────────────────
 bindsym $mod+Shift+q kill
@@ -48,6 +50,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # ─── Pantalla flotante / redimensionar ──────────────
+floating_modifier $mod
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 # Sticky: ventana visible en todos los workspaces
@@ -58,7 +61,7 @@ bindsym $mod+Shift+s sticky toggle
 bindsym $mod+minus move scratchpad
 bindsym $mod+Shift+minus scratchpad show
 # Alternativa: mover ventana a scratchpad y mostrarla con un solo atajo
-bindsym $mod+grave scratchpad show
+bindsym $mod+apostrophe scratchpad show
 
 # ─── Mover ventana a workspace y seguirlo ───────────
 bindsym $mod+Shift+BackSpace move workspace to output left; workspace prev
@@ -117,8 +120,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Navegación entre workspaces
-bindsym $mod+Tab workspace back_and_forth  # Volver al workspace anterior
-bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Ctrl+Left  workspace prev
 bindsym $mod+Ctrl+Right workspace next
 
@@ -127,13 +129,17 @@ bindsym $mod+a focus parent
 bindsym $mod+z focus child
 
 # ─── Scratchpad ────────────────────────────────────
-bindsym $mod+minus move scratchpad
-bindsym $mod+Shift+minus scratchpad show
 
 # ─── Apps rápidas ───────────────────────────────────
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+n exec nvim
 bindsym $mod+Shift+t exec thunar
+# Obsidian (notas, tareas, kanban, mindmaps)
+bindsym $mod+Shift+i exec flatpak run md.obsidian.Obsidian
+# Tomatillo (pomodoro)
+bindsym $mod+Shift+p exec flatpak run io.github.diegopvlk.Tomatillo
+# GNOME Clocks (alarmas, timer, stopwatch)
+bindsym $mod+Shift+a exec flatpak run org.gnome.clocks
 
 # ─── Multimedia ─────────────────────────────────────
 # Teclas físicas de medios (si tenés)
@@ -160,7 +166,13 @@ bindsym $mod+Ctrl+space exec --no-startup-id playerctl play-pause
 bindsym $mod+comma exec --no-startup-id playerctl previous
 bindsym $mod+period exec --no-startup-id playerctl next
 
+# ─── Apps a workspaces ──────────────────────────────
+assign [class="firefox"] $ws2
+assign [class="Thunar"] $ws4
+assign [class="obsidian"] $ws4
+
 # ─── Ventanas flotantes ─────────────────────────────
+for_window [floating] move position center
 for_window [class="(?i)Vlc"] floating enable
 for_window [class="(?i)mpv"] floating enable
 for_window [class="(?i)Galculator"] floating enable
@@ -168,6 +180,8 @@ for_window [title="Administrador de archivos"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [class="(?i)firefox" window_role="About"] floating enable
+for_window [class="(?i)Tomatillo"] floating enable
+for_window [class="(?i)Gnome-clocks"] floating enable
 
 show_marks no
 
@@ -189,6 +203,8 @@ client.urgent           $red     $red     $fg      $red     $red
 # Bordes
 new_window 1pixel
 new_float normal
+smart_borders on
+smart_gaps on
 
 # Gap (espacio entre ventanas)
 gaps inner 3
@@ -203,6 +219,8 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # ─── Fondo de pantalla ─────────────────────────────
 exec --no-startup-id feh --bg-fill ~/Pictures/backiee-286513-landscape.jpg
+exec --no-startup-id ln -sf ~/Pictures/backiee-286513-landscape.jpg /tmp/current-wallpaper
+bindsym $mod+Shift+b exec --no-startup-id /home/max/.local/bin/wallpaper-picker  # Cambiar wallpaper
 
 # ─── Arrancar apps al inicio ───────────────────────
 exec --no-startup-id xfce4-power-manager
@@ -224,16 +242,22 @@ bindsym $mod+Shift+y exec setxkbmap es
 exec --no-startup-id dunst
 
 # ─── Screenshots (flameshot) ───────────────────────
-bindsym Print exec --no-startup-id flameshot gui
-bindsym $mod+Print exec --no-startup-id flameshot full -p ~/Pictures
+bindsym $mod+Shift+z exec --no-startup-id flameshot gui       # Región
+bindsym $mod+Shift+x exec --no-startup-id flameshot full -p ~/Pictures  # Pantalla completa
 
 # ─── Portapapeles (copyq) ─────────────────────────
 exec --no-startup-id copyq
 bindsym $mod+Ctrl+v exec --no-startup-id copyq show
 
 # ─── Bloqueo de pantalla ──────────────────────────
-exec --no-startup-id xss-lock -- i3lock -c 1F1F28
-bindsym $mod+Shift+x exec --no-startup-id i3lock -c 1F1F28
+exec --no-startup-id xss-lock -- /home/max/.local/bin/lock-screen
+bindsym $mod+Shift+o exec --no-startup-id /home/max/.local/bin/lock-screen
 
 # ─── Control de volumen gráfico ───────────────────
 bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
+
+# ─── Limpiar notificaciones pegadas ──────────────
+bindsym $mod+n exec --no-startup-id dunstctl close-all; killall dunst && sleep 0.3 && nohup dunst &>/dev/null &
+
+# ─── Seleccionar red (WiFi / Ethernet) ───────────
+bindsym $mod+Ctrl+n exec --no-startup-id $term -e nmtui-connect

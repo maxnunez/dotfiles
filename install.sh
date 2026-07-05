@@ -29,6 +29,8 @@ ESSENTIAL_PKGS=(
   flameshot copyq
   # Wallpaper
   feh
+  # File picker + image processing
+  zenity imagemagick
   # Multimedia
   pavucontrol volumeicon brightnessctl playerctl vlc
   # Sistema
@@ -89,13 +91,28 @@ ln -sf "$DOTFILES/AGENTS.md"          "$HOME/AGENTS.md"
 ln -sf "$DOTFILES/SOUL.md"            "$HOME/SOUL.md"
 
 mkdir -p "$HOME/.config"
-for dir in i3 kitty polybar picom dunst opencode nvim; do
+for dir in i3 kitty polybar picom dunst opencode nvim feh; do
   target="$HOME/.config/$dir"
   mkdir -p "$target"
   # Remove old files but keep dir
   rm -f "$target"/* 2>/dev/null || true
   cp -r "$DOTFILES/$dir"/* "$target/"
 done
+
+# ─── Scripts locales ─────────────────────────────────
+echo ""
+echo "📜 Copiando scripts a ~/.local/bin..."
+mkdir -p "$HOME/.local/bin"
+for script in "$DOTFILES/scripts"/*; do
+  cp "$script" "$HOME/.local/bin/"
+  chmod +x "$HOME/.local/bin/$(basename "$script")"
+done
+
+# ─── Fondo de login (LightDM) ────────────────────────
+echo ""
+echo "🔐 Configurando LightDM (fondo de login)..."
+echo "  → Necesitás copiar manualmente:"
+echo "    sudo cp $DOTFILES/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/"
 
 # ─── Zsh plugins ─────────────────────────────────────
 echo ""

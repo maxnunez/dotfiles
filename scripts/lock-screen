@@ -1,0 +1,17 @@
+#!/bin/bash
+# Lock screen con blur del escritorio actual
+# Toma una screenshot, la blurrea, y la usa como fondo
+
+TMPBG="/tmp/lock-screen.png"
+
+# Tomar screenshot del escritorio actual
+import -window root "$TMPBG"
+
+# Blurrarla (pixelado + desenfoque)
+convert "$TMPBG" -scale 10% -scale 1000% -blur 0x8 "$TMPBG"
+
+# Bloquear
+i3lock -i "$TMPBG" --fill --nofork
+
+# Limpiar después de desbloquear
+rm -f "$TMPBG"

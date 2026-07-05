@@ -1,0 +1,12 @@
+#!/bin/bash
+# Wallpaper picker — seleccioná una imagen y se setea como fondo + lock screen
+
+IMAGE=$(zenity --file-selection --title="Elegí un wallpaper" \
+  --file-filter="Imágenes | *.png *.jpg *.jpeg *.bmp *.gif *.webp" \
+  --filename="$HOME/Pictures/")
+
+if [ -n "$IMAGE" ]; then
+  feh --bg-fill "$IMAGE"
+  ln -sf "$IMAGE" /tmp/current-wallpaper
+  notify-send "Wallpaper actualizado" "$(basename "$IMAGE")"
+fi
