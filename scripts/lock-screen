@@ -1,17 +1,17 @@
 #!/bin/bash
 # Lock screen con blur del escritorio actual
-# Toma una screenshot, la blurrea, y la usa como fondo
 
 TMPBG="/tmp/lock-screen.png"
+SCREEN="1366x768"  # resolución de la pantalla
 
-# Tomar screenshot del escritorio actual
-import -window root "$TMPBG"
+# Tomar screenshot y redimensionar al tamaño exacto de la pantalla
+import -window root -resize "$SCREEN!" "$TMPBG"
 
-# Blurrarla (pixelado + desenfoque)
+# Blurrarla
 convert "$TMPBG" -scale 10% -scale 1000% -blur 0x8 "$TMPBG"
 
-# Bloquear
-i3lock -i "$TMPBG" --fill --nofork
+# Bloquear (i3lock 2.15 no tiene --fill, ya está redimensionada)
+i3lock -i "$TMPBG" -n
 
-# Limpiar después de desbloquear
+# Limpiar
 rm -f "$TMPBG"
