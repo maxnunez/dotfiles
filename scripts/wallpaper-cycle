@@ -1,0 +1,46 @@
+#!/bin/bash
+# wallpaper-cycle — cicla wallpapers con next/prev
+# Uso: wallpaper-cycle next / wallpaper-cycle prev
+
+WALL_DIR="$HOME/Pictures/wallpapers"
+STATE_FILE="/tmp/wallpaper-index"
+CACHE=$(find "$WALL_DIR" -maxdepth 2 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) 2>/dev/null | sort)
+
+[ -z "$CACHE" ] && exit 1
+
+# Build list
+mapfile -t IMGS <<< "$CACHE"
+TOTAL=${#IMGS[@]}
+
+# Read current index
+if [ -f "$STATE_FILE" ]; then
+  IDX=$(cat "$STATE_FILE")
+else
+  # Try to match current wallpaper
+  CURRENT=$(cat /tmp/current-wallpaper-path 2>/dev/null)
+  IDX=0
+  if [ -n "$CURRENT" ]; then
+    for i in "${!IMGS[@]}"; do
+      if [ "${IMGS[$i]}" = "$CURRENT" ]; then
+        IDX=$i
+        break
+      fi
+    done
+  fi
+fi
+
+# Navigate
+case "$1" in
+  next)  IDX=$(( (IDX + 1) % TOTAL )) ;;
+  prev)  IDX=$(( (IDX - 1 + TOTAL) % TOTAL )) ;;
+  rand)  IDX=$(( RANDOM % TOTAL )) ;;
+  *)     IDX=$(( (IDX + 1) % TOTAL )) ;;
+esac
+
+# Apply
+WALL="${IMGS[$IDX]}"
+echo "$IDX" > "$STATE_FILE"
+feh --bg-fill "$WALL"
+ln -sf "$WALL" /tmp/current-wallpaper
+echo "$WALL" > /tmp/current-wallpaper-path
+notify-send "Wallpaper" "$(basename "$WALL")"

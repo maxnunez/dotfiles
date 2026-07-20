@@ -1,15 +1,18 @@
 # ─── i3 Config ──────────────────────────────────────
+# DankLinux Material Design 3 Theme
 # Mod = Super (Windows key)
-# Atajos estilo Zellij, terminales, y lo esencial
 
 # ─── Tecla mod ──────────────────────────────────────
 set $mod Mod4
 
 # ─── Font (REQUERIDO) ───────────────────────────────
-font pango:monospace 8
+font pango:Inter 10
 
 # ─── Mouse ─────────────────────────────────────────
 focus_follows_mouse no
+focus_on_window_activation smart
+workspace_auto_back_and_forth yes
+title_align center
 
 # ─── Terminal ───────────────────────────────────────
 set $term kitty
@@ -17,9 +20,9 @@ bindsym $mod+Return exec $term
 for_window [instance="kitty"] title_format "⌨ terminal"
 
 # ─── Rofi: app launcher, window switcher, commands ──
-bindsym $mod+d exec rofi -show drun       # Lanzar apps
-bindsym $mod+Shift+d exec rofi -show run  # Comandos / terminal
-bindsym $mod+Shift+w exec rofi -show window  # Cambiar entre ventanas abiertas
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Shift+d exec rofi -show run
+bindsym $mod+Shift+w exec rofi -show window
 
 # ─── Cerrar / salir ─────────────────────────────────
 bindsym $mod+Shift+q kill
@@ -53,21 +56,21 @@ bindsym $mod+e layout toggle split
 floating_modifier $mod
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
-# Sticky: ventana visible en todos los workspaces
 bindsym $mod+Shift+s sticky toggle
 
-# ─── Scratchpad mejorado (toggle único) ─────────────
-# Mod + minus: mueve a scratchpad si está visible, muestra si está oculto
+# ─── Scratchpad mejorado ───────────────────────────
 bindsym $mod+minus move scratchpad
 bindsym $mod+Shift+minus scratchpad show
-# Alternativa: mover ventana a scratchpad y mostrarla con un solo atajo
 bindsym $mod+apostrophe scratchpad show
+
+# ─── Scratchpad terminal (slide down) ──────────────
+for_window [instance="scratchpad-term"] move scratchpad, floating enable, resize set 1200 700, move position center
+bindsym $mod+grave exec --no-startup-id bash -c "$term --class scratchpad-term & sleep 0.2; i3-msg '[instance=scratchpad-term] scratchpad show'"
 
 # ─── Mover ventana a workspace y seguirlo ───────────
 bindsym $mod+Shift+BackSpace move workspace to output left; workspace prev
-# Mover ventana a otro output / monitor
 
-# ─── Redimensionar (mod + r, luego flechas/hjkl) ───
+# ─── Redimensionar ─────────────────────────────────
 mode "resize" {
     bindsym h resize shrink width 10 px or 10 ppt
     bindsym j resize grow height 10 px or 10 ppt
@@ -83,8 +86,8 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# ─── Workspaces (escritorios) ───────────────────────
-set $ws1 "dev"
+# ─── Workspaces ─────────────────────────────────────
+set $ws1 "casa"
 set $ws2 "web"
 set $ws3 "term"
 set $ws4 "docs"
@@ -95,7 +98,6 @@ set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
 
-# Ir a workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -107,7 +109,6 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-# Mover ventana a workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -119,30 +120,22 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-# Navegación entre workspaces
 bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+Ctrl+Left  workspace prev
 bindsym $mod+Ctrl+Right workspace next
 
-# Navegar contenedores padre/hijo
 bindsym $mod+a focus parent
 bindsym $mod+z focus child
-
-# ─── Scratchpad ────────────────────────────────────
 
 # ─── Apps rápidas ───────────────────────────────────
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+n exec nvim
 bindsym $mod+Shift+t exec thunar
-# Obsidian (notas, tareas, kanban, mindmaps)
 bindsym $mod+Shift+i exec flatpak run md.obsidian.Obsidian
-# Tomatillo (pomodoro)
 bindsym $mod+Shift+p exec flatpak run io.github.diegopvlk.Tomatillo
-# GNOME Clocks (alarmas, timer, stopwatch)
 bindsym $mod+Shift+a exec flatpak run org.gnome.clocks
 
 # ─── Multimedia ─────────────────────────────────────
-# Teclas físicas de medios (si tenés)
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -152,16 +145,13 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
-# Volumen (Super + flechas)
 bindsym $mod+Up exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym $mod+Down exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+m exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-# Brillo (Super + Shift + flechas)
 bindsym $mod+Shift+Up exec --no-startup-id brightnessctl set +5%
 bindsym $mod+Shift+Down exec --no-startup-id brightnessctl set 5%-
 
-# Reproducción (Super + , .)
 bindsym $mod+Ctrl+space exec --no-startup-id playerctl play-pause
 bindsym $mod+comma exec --no-startup-id playerctl previous
 bindsym $mod+period exec --no-startup-id playerctl next
@@ -185,32 +175,40 @@ for_window [class="(?i)Gnome-clocks"] floating enable
 
 show_marks no
 
-# ─── Apariencia ─────────────────────────────────────
-# Colores oscuros (como kanagawa_wave)
-set $bg       #1F1F28
-set $fg       #DCD7BA
-set $blue     #7E9CD8
-set $red      #C34043
-set $green    #76946A
-set $yellow   #C0A36E
-set $cyan     #6A9589
+# ─── Apariencia — DankLinux Material Design 3 ───────
+# Deep dark background with teal primary accent
+set $bg         #0D1117
+set $bg_alt     #161B22
+set $surface    #21262D
+set $fg         #E6EDF3
+set $fg_dim     #8B949E
+set $primary    #00B899
+set $secondary  #A78BFA
+set $red        #FF7B72
+set $green      #7EE787
+set $yellow     #E3B341
+set $blue       #79C0FF
+set $cyan       #56D4DD
+set $magenta    #D2A8FF
 
-client.focused          $blue    $blue    $fg      #000000  $blue
-client.focused_inactive $bg      $bg      #54546D  $bg      $bg
-client.unfocused        $bg      $bg      #54546D  $bg      $bg
-client.urgent           $red     $red     $fg      $red     $red
+client.focused          $primary    $primary    $bg      #000000  $primary
+client.focused_inactive $bg_alt     $bg_alt     $fg_dim  $bg_alt  $bg_alt
+client.unfocused        $surface    $surface    $fg_dim  $surface $surface
+client.urgent           $red        $red        $bg      $red     $red
+client.placeholder      $surface    $surface    $fg_dim  $surface $surface
 
-# Bordes
-new_window 1pixel
+# ─── Bordes y gaps ───────────────────────────────
+new_window pixel 2
 new_float normal
 smart_borders on
 smart_gaps on
 
-# Gap (espacio entre ventanas)
-gaps inner 3
-gaps outer 2
+gaps inner 10
+gaps outer 4
 
-# Ajustar gaps dinámicamente
+# ─── Urgent workspace: focus al hacer popup ──────
+popup_during_fullscreen smart
+
 bindsym $mod+Ctrl+plus  gaps inner current plus 5
 bindsym $mod+Ctrl+minus gaps inner current minus 5
 
@@ -218,9 +216,13 @@ bindsym $mod+Ctrl+minus gaps inner current minus 5
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # ─── Fondo de pantalla ─────────────────────────────
-exec --no-startup-id feh --bg-fill ~/Pictures/backiee-286513-landscape.jpg
-exec --no-startup-id ln -sf ~/Pictures/backiee-286513-landscape.jpg /tmp/current-wallpaper
-bindsym $mod+Shift+b exec --no-startup-id /home/max/.local/bin/wallpaper-picker  # Cambiar wallpaper
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpapers/backiee-286513-landscape.jpg
+exec --no-startup-id ln -sf ~/Pictures/wallpapers/backiee-286513-landscape.jpg /tmp/current-wallpaper
+exec --no-startup-id bash -c "echo ~/Pictures/wallpapers/backiee-286513-landscape.jpg > /tmp/current-wallpaper-path"
+bindsym $mod+Shift+b exec --no-startup-id /home/max/.local/bin/wallpaper-select
+bindsym $mod+bracketright exec --no-startup-id /home/max/.local/bin/wallpaper-cycle next
+bindsym $mod+bracketleft exec --no-startup-id /home/max/.local/bin/wallpaper-cycle prev
+bindsym $mod+backslash exec --no-startup-id /home/max/.local/bin/wallpaper-cycle rand
 
 # ─── Arrancar apps al inicio ───────────────────────
 exec --no-startup-id xfce4-power-manager
@@ -233,17 +235,14 @@ bindsym $mod+Shift+u exec setxkbmap us
 bindsym $mod+Shift+y exec setxkbmap es
 
 # ─── Compositor ────────────────────────────────────
-# DESACTIVADO: picom con GLX mataba la GPU (27% CPU)
-# Si querés compositor liviano, activá la línea de xcompmgr:
-# exec_always --no-startup-id xcompmgr -C
-# exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # ─── Notificaciones (dunst) ────────────────────────
 exec --no-startup-id dunst
 
 # ─── Screenshots (flameshot) ───────────────────────
-bindsym $mod+Shift+z exec --no-startup-id flameshot gui       # Región
-bindsym $mod+Shift+x exec --no-startup-id flameshot full -p ~/Pictures  # Pantalla completa
+bindsym $mod+Shift+z exec --no-startup-id flameshot gui
+bindsym $mod+Shift+x exec --no-startup-id flameshot full -p ~/Pictures
 
 # ─── Portapapeles (copyq) ─────────────────────────
 exec --no-startup-id copyq
@@ -257,7 +256,7 @@ bindsym $mod+Shift+o exec --no-startup-id /home/max/.local/bin/lock-screen
 bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
 
 # ─── Limpiar notificaciones pegadas ──────────────
-bindsym $mod+n exec --no-startup-id dunstctl close-all; killall dunst && sleep 0.3 && nohup dunst &>/dev/null &
+bindsym $mod+n exec --no-startup-id bash -c "dunstctl close-all; killall dunst; sleep 0.3; dunst &"
 
-# ─── Seleccionar red (WiFi / Ethernet) ───────────
+# ─── Seleccionar red ───────────────────────────────
 bindsym $mod+Ctrl+n exec --no-startup-id $term -e nmtui-connect

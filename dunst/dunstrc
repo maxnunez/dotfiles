@@ -19,11 +19,11 @@
     horizontal_padding = 12
     text_icon_padding = 8
     frame_width = 2
-    frame_color = "#7E9CD8"
+    frame_color = "#00B899"
     separator_color = frame
     sort = yes
     idle_threshold = 120
-    font = monospace 10
+    font = Inter 10
     line_height = 0
     markup = full
     format = "<b>%s</b>\n%b"
@@ -47,7 +47,7 @@
     always_run_script = true
     title = Dunst
     class = Dunst
-    corner_radius = 0
+    corner_radius = 8
     ignore_iconify_request = yes
     skip_paused = false
     mouse_left_click = do_action
@@ -64,20 +64,20 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = "#1F1F28"
-    foreground = "#DCD7BA"
+    background = "#0D1117"
+    foreground = "#E6EDF3"
     timeout = 5
     override_origin = top-right
 
 [urgency_normal]
-    background = "#1F1F28"
-    foreground = "#DCD7BA"
+    background = "#0D1117"
+    foreground = "#E6EDF3"
     timeout = 8
     override_origin = top-right
 
 [urgency_critical]
-    background = "#C34043"
-    foreground = "#DCD7BA"
+    background = "#FF7B72"
+    foreground = "#0D1117"
     timeout = 0
     override_origin = top-right
-    frame_color = "#C34043"
+    frame_color = "#FF7B72"

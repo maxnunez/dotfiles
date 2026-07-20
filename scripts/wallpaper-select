@@ -1,0 +1,43 @@
+#!/bin/bash
+# wallpaper-select — rofi browser para elegir fondo de pantalla
+
+WALL_DIR="$HOME/Pictures/wallpapers"
+CACHE_DIR="/tmp/wallpaper-cache"
+mkdir -p "$CACHE_DIR"
+
+# Collect all images
+IMGS=()
+while IFS= read -r f; do
+  IMGS+=("$f")
+done < <(find "$WALL_DIR" -maxdepth 2 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.bmp' \) 2>/dev/null | sort)
+
+[ ${#IMGS[@]} -eq 0 ] && notify-send "Wallpaper" "No se encontraron imágenes en ~/Pictures" && exit 1
+
+# Build rofi list with thumbnails
+ENTRIES=""
+for img in "${IMGS[@]}"; do
+  name=$(basename "$img")
+  # Create thumbnail for rofi
+  thumb="$CACHE_DIR/$(echo "$name" | md5sum | cut -d' ' -f1).png"
+  if [ ! -f "$thumb" ]; then
+    convert "$img" -resize 200x120^ -gravity center -extent 200x120 "$thumb" 2>/dev/null
+  fi
+  ENTRIES+="${name}\0icon\x1f${thumb}\n"
+done
+
+# Launch rofi
+SELECTED=$(echo -e "$ENTRIES" | rofi -dmenu -i -p "-wallpaper" \
+  -theme-str 'window { width: 600px; } listview { columns: 2; spacing: 10px; }' \
+  -display-column 1)
+
+if [ -n "$SELECTED" ]; then
+  # Find the full path
+  FULL=$(find "$WALL_DIR" -maxdepth 2 -type f -name "$SELECTED" | head -1)
+  if [ -n "$FULL" ]; then
+    feh --bg-fill "$FULL"
+    ln -sf "$FULL" /tmp/current-wallpaper
+    # Save selection for slider
+    echo "$FULL" > /tmp/current-wallpaper-path
+    notify-send "Wallpaper" "$(basename "$FULL")"
+  fi
+fi
