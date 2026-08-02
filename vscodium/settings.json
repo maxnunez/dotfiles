@@ -141,5 +141,28 @@
   "errorLens.gutterIconsEnabled": true,
   "errorLens.addVerticalPadding": false,
   "todo-tree.highlights.enabled": true,
-  "todo-tree.general.showActivityBarBadge": true
+  "todo-tree.general.showActivityBarBadge": true,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "comment",
+        "settings": {
+          "foreground": "#C77A3C",
+          "fontStyle": "italic"
+        }
+      }
+    ]
+  },
+  "cSpell.language": "es,en",
+  "cSpell.diagnosticLevel": "Warning",
+  "cSpell.enableFiletypes": ["markdown", "plaintext", "php", "javascript", "typescript", "vue", "astro"],
+  "editor.hover.enabled": true,
+  "editor.hover.delay": 300,
+  "editor.hover.above": false,
+  "editor.parameterHints.enabled": true,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "on",
+    "strings": "on"
+  }
 }

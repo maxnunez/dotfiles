@@ -24,6 +24,8 @@ onecentlin.laravel5-snippets
 pkief.material-icon-theme
 shufo.vscode-blade-formatter
 sonarsource.sonarlint-vscode
+streetsidesoftware.code-spell-checker
+streetsidesoftware.code-spell-checker-spanish
 syler.sass-indented
 usernamehw.errorlens
 vue.volar
