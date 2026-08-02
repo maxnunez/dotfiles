@@ -142,6 +142,7 @@
   "errorLens.addVerticalPadding": false,
   "todo-tree.highlights.enabled": true,
   "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.ripgrep": "/home/linuxbrew/.linuxbrew/bin/rg",
   "editor.tokenColorCustomizations": {
     "textMateRules": [
       {
