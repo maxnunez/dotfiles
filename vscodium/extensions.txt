@@ -1,6 +1,7 @@
 alexravenna.dimmed-vibrant
 amiralizadeh9480.laravel-extra-intellisense
 astro-build.astro-vscode
+aykutsarac.jsoncrack-vscode
 bmewburn.vscode-intelephense-client
 bradlc.vscode-tailwindcss
 cweijan.dbclient-jdbc
