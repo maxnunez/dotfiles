@@ -1,0 +1,502 @@
+ABREVIATURAS DE PROGRAMACIÓN — Guía para entrevistas
+=====================================================
+
+═══ POO — PROGRAMACIÓN ORIENTADA A OBJETOS ═══
+
+Clase  → Molde/plantilla para crear objetos
+         Define propiedades (atributos) y métodos (comportamiento).
+         Ej: class Usuario { nombre, email, login() }
+
+Objeto → Instancia de una clase
+         Tiene estado concreto. new Usuario("Max", "max@mail.com")
+         Es la representación en memoria de la clase.
+
+Encapsulamiento → Ocultar el estado interno del objeto
+         public (todos ven), private (solo la clase), protected (clase + herencia).
+         Getter/setter para acceder controladamente. No exponer propiedades
+         internas directamente.
+
+Herencia → Una clase hereda atributos y métodos de otra
+         class Admin extends Usuario { }. Admin tiene todo de Usuario +
+         lo suyo. "Es un" (is-a). PHP/Java: extends. No abusar —
+         composición > herencia.
+
+Polimorfismo → Un mismo método se comporta distinto según el objeto
+         interface Pago { procesar() } → TarjetaPago.procesar() hace una
+         cosa, PayPalPago.procesar() hace otra. Misma interfaz, distinto
+         comportamiento.
+
+Abstracción → Ocultar complejidad, mostrar solo lo esencial
+         abstract class o interface. Definís QUÉ hace, no CÓMO.
+         El que implementa decide el cómo. Ej: interface RepositorioUsuario
+         con método guardar(). No importa si guarda en MySQL o Redis.
+
+Constructor → Método que se ejecuta AL CREAR el objeto
+         public function __construct($nombre) { this.nombre = $nombre; }
+         Inicializa el estado. Puede recibir dependencias (DI).
+
+Método → Función dentro de una clase
+         Comportamiento del objeto. Puede ser public, private, protected,
+         static, abstract, final.
+
+Propiedad → Variable dentro de una clase
+         También llamado atributo o campo. Almacena el estado del objeto.
+
+Static → Pertenece a la clase, no a la instancia
+         Usuario::totalUsuarios() se llama sin instanciar. No depende
+         del estado del objeto. Cuidado: difícil de testear.
+
+Interface → Contrato que las clases deben cumplir
+         interface Pagable { function pagar(): void; }
+         Quien implemente Pagable está OBLIGADO a tener pagar().
+         Permite polimorfismo y desacoplamiento.
+
+Abstract → Clase que NO se puede instanciar directamente
+         abstract class Animal { abstract function hacerSonido(); }
+         Perro extends Animal → debe implementar hacerSonido().
+         Sirve para definir base con métodos comunes + abstractos.
+
+Composición → Una clase tiene ("has-a") otra clase
+         class Coche { private Motor motor; }
+         Coche NO es un Motor, TIENE un Motor. Composición > herencia.
+         Más flexible, menos acoplamiento.
+
+Inyección de Dependencias (DI) → Pasar dependencias por constructor
+         En vez de new Motor() dentro de Coche, recibís Motor por
+         parámetro. Desacopla, facilita tests, permite cambiar
+         implementación sin tocar el código.
+
+═══ PATRONES DE DISEÑO (Design Patterns — GoF) ═══
+
+Singleton → Una sola instancia de la clase en toda la app
+         Ej: Logger::getInstance(). En Laravel no se usa — los
+         services en el contenedor son singleton por defecto.
+
+Factory → Método que crea objetos sin especificar la clase concreta
+         new PagoFactory::crear('paypal') te devuelve un PayPalPago.
+         Centraliza la creación de objetos complejos.
+
+Repository → Capa que abstrae el almacenamiento de datos
+         interface UsuarioRepo { find($id), save($u), delete($u) }
+         Implementación con Eloquent, otra con archivos, otra con API.
+         El negocio NO sabe de dónde vienen los datos. Clave en
+         Arquitectura Hexagonal.
+
+Service Layer → Capa de lógica de negocio pura
+         El controller solo recibe request y devuelve response.
+         La lógica pesada va en Services o Actions. NO en el controller,
+         NO en el modelo (si el modelo crece demasiado).
+
+Observer → Un objeto notifica a otros cuando cambia su estado
+         Event/Listener en Laravel. UserRegistered → SendEmail,
+         SendSMS, LogMetric. Desacopla el emisor de los receptores.
+
+Strategy → Familia de algoritmos intercambiables
+         Ej: distintos métodos de pago. Interface PagoStrategy con
+         diferentes implementaciones. El código elige cuál usar en
+         tiempo de ejecución.
+
+═══ ARQUITECTURAS (en general) ═══
+
+Arquitectura Monolítica → Todo en una sola app
+         Ventaja: simple al inicio, un solo deploy.
+         Desventaja: todo acoplado, difícil escalar partes.
+
+Microservicios → Cada servicio es una app independiente
+         Ventaja: escalan individualmente, equipos separados.
+         Desventaja: complejidad de red, datos distribuidos.
+
+Cliente-Servidor → Frontend pide, backend responde
+         Web clásica. El navegador (cliente) hace requests al servidor.
+         REST API + SPA o SSR.
+
+Hexagonal (Ports & Adapters) → El núcleo de negocio no sabe de frameworks
+         Puerto = interface (qué necesita el negocio).
+         Adaptador = implementación (MySQL, Redis, API externa).
+         Laravel: Repository pattern + Service layer.
+         El negocio está en el CENTRO, sin depender de Laravel.
+
+CQRS → Command Query Responsibility Segregation
+         Separás comandos (escribir) de queries (leer).
+         Models distintos para lectura y escritura.
+         Útil cuando leer y escribir tienen requerimientos distintos.
+
+Event Sourcing → Guardás eventos, no el estado actual
+         En vez de "usuario.email = nuevo", guardás "evento: email cambiado".
+         El estado actual se reconstruye reproduciendo eventos.
+         Poco común, pero potente para auditoría.<｜end▁of▁thinking｜>
+
+<｜｜DSML｜｜parameter name="replaceAll" string="false">false
+
+CI/CD → Continuous Integration / Continuous Delivery (o Deployment)
+       CI = integrar cambios frecuentemente con tests automáticos.
+       CD = entregar a producción automáticamente después de pasar CI.
+
+JSON → JavaScript Object Notation
+       Formato de datos liviano. Clave-valor. El estándar para APIs REST.
+       Ej: {"nombre": "Max", "edad": 30}
+
+JWT  → JSON Web Token
+       Token de autenticación. Tres partes: header.payload.signature.
+       El server crea el token firmado, el cliente lo envía en cada request.
+       Stateless — no se guarda en DB.
+
+CORS → Cross-Origin Resource Sharing
+       Mecanismo de seguridad del navegador. Controla qué dominios pueden
+       acceder a tu API. Si tu frontend está en localhost:3000 y la API en
+       localhost:8000, necesitás CORS configurado.
+
+DOM  → Document Object Model
+       Representación en memoria del HTML que el navegador crea.
+       JavaScript manipula el DOM para cambiar la página dinámicamente.
+
+AJAX → Asynchronous JavaScript and XML
+       Técnica para hacer requests HTTP desde JS sin recargar la página.
+       Hoy se usa fetch() o Axios, no XML, pero el nombre quedó.
+
+SEO  → Search Engine Optimization
+       Prácticas para que Google encuentre y rankee mejor tu sitio.
+       Meta tags, HTML semántico, velocidad, responsive, sitemaps.
+
+SSR  → Server-Side Rendering
+       El HTML se genera en el servidor y se envía ya renderizado.
+       Laravel Blade, PHP clásico, Next.js con SSR. Mejor para SEO.
+
+SPA  → Single Page Application
+       Una sola página HTML. El contenido cambia con JavaScript.
+       Ej: React, Vue, Angular. Carga inicial pesada, después fluido.
+
+═══════════════════════════════════════════
+
+
+═══ BASES DE DATOS ═══
+
+SQL  → Structured Query Language
+       Lenguaje para consultar bases de datos relacionales.
+       SELECT, INSERT, UPDATE, DELETE, JOIN, WHERE, GROUP BY.
+
+NoSQL → Not Only SQL
+       Bases no relacionales. MongoDB (documentos), Redis (clave-valor),
+       Cassandra (columnas). Usá cuando necesitás escalar horizontal o
+       datos no estructurados.
+
+ACID → Atomicity, Consistency, Isolation, Durability
+       Propiedades de transacciones SQL.
+       A = toda la transacción se hace o ninguna
+       C = los datos siempre son válidos
+       I = transacciones simultáneas no se interfieren
+       D = una vez commiteado, persiste aunque se caiga el server
+
+JOIN → Combinación de tablas en SQL
+       Tipos: INNER (solo matches), LEFT (todo de izquierda + matches),
+       RIGHT (todo de derecha + matches), FULL (todo + todo).
+
+INDEX → Estructura que acelera búsquedas en DB
+       Como el índice de un libro. Acelera SELECT, ralentiza INSERT.
+       Creá índices en columnas que usás en WHERE y JOIN.
+
+MIGRATION → Control de versiones para esquemas de DB
+       Archivos que modifican la estructura (crear tablas, agregar columnas).
+       Se versionan en git. Se ejecutan en orden. Laravel: php artisan migrate.
+
+SEEDER → Poblador de datos de prueba
+       Llena la DB con datos falsos para desarrollo/testing.
+       Laravel: DatabaseSeeder + factories + faker.
+
+FOREIGN KEY → Clave foránea
+       Columna que referencia la PK de otra tabla. Mantiene integridad
+       referencial. Ej: posts.user_id → users.id.
+
+N+1 → Problema de performance en ORM
+       Hacés 1 query para obtener N registros + N queries para relaciones.
+       Solución: Eager Loading (with() en Laravel, JOIN FETCH en JPA).
+
+═══════════════════════════════════════════
+
+
+═══ PHP / LARAVEL ═══
+
+Composer → Gestor de dependencias de PHP
+       Como npm pero para PHP. composer.json define las dependencias,
+       composer.lock las fija. composer install / composer update.
+
+Artisan → CLI de Laravel
+       php artisan make:controller, php artisan migrate,
+       php artisan serve, etc. Genera código, corre migraciones,
+       tareas programadas, colas.
+
+Eloquent → ORM de Laravel
+       Active Record implementation. User::find($id),
+       Post::where('active', true)->get(). Cada modelo mapea a una tabla.
+
+Blade → Motor de plantillas de Laravel
+       Sintaxis: @if, @foreach, {{ $variable }}, @yield, @extends.
+       Compila a PHP puro, es rápido.
+
+Middleware → Capa que intercepta requests HTTP
+       Antes de que lleguen al controller. Autenticación, rate limiting,
+       CORS, logs. Se define en kernel.php.
+
+Service Provider → Punto de entrada para registrar servicios en Laravel
+       Todo en Laravel arranca desde providers. Registran bindings,
+       eventos, middlewares, rutas.
+
+Facade → Interfaz estática a servicios del contenedor
+       Ej: Cache::get(), DB::table(), Route::get().
+       Parecen métodos estáticos pero son proxies a instancias reales.
+
+Tinker → REPL (Read-Eval-Print Loop) de Laravel
+       php artisan tinker → terminal interactiva para probar código,
+       consultar DB, llamar métodos. Ideal para debugging rápido.
+
+Sanctum → Autenticación liviana para APIs y SPA
+       Tokens simples para APIs. Para apps SPA usa cookies con
+       autenticación basada en sesión del framework.
+
+Horizon → Dashboard y gestión de colas Redis para Laravel
+       Monitoreo visual de colas, trabajos fallidos, métricas.
+       Requiere Redis.
+
+Queue → Sistema de colas para tareas asíncronas
+       Procesamiento en segundo plano: emails, procesamiento de imágenes,
+       notificaciones. Drivers: Redis, DB, SQS.
+
+Event / Listener → Patrón Observer en Laravel
+        Event = algo que pasó (UserRegistered). Listener = qué hacer
+        cuando pasa (SendWelcomeEmail). Desacopla lógica.
+
+═══ ARQUITECTURAS EN LARAVEL ═══
+
+MVC (Model-View-Controller)
+  └── Arquitectura por defecto de Laravel
+  └── Route → Controller → Model (DB) → View (Blade)
+  └── Bien para: CRUD simple, monolitos chicos, proyectos con Blade
+  └── Problema: Controllers gordos, Models anémicos o dioses
+  └── NO pongas lógica de negocio en controllers ni en routes
+
+Arquitectura por Capas (Layered)
+  └── Separás responsabilidades horizontalmente
+  └── Controller → Service → Repository → Model
+  └── Cada capa solo habla con la de abajo
+  └── Controller: recibe request, valida, delega
+  └── Service: lógica de negocio, orquesta operaciones
+  └── Repository: acceso a datos, abstrae Eloquent
+  └── Bien para: apps medianas, APIs, testear servicios
+  └── Cuidado: puede generar mucha ceremonia si es chico
+
+Action Pattern (Single Action)
+  └── Un archivo = una acción
+  └── php artisan make:action RegisterUserAction
+  └── Cada Action tiene UNA responsabilidad (invoke/execute)
+  └── Controller queda flaco: llama a un Action y devuelve
+  └── Bien para: organización clara, fácil de testear
+  └── Laravel recomienda esta para apps complejas
+  └── Ej: RegisterUserAction, ApprovePostAction, SendInvoiceAction
+
+Repository Pattern
+  └── Interface + Implementación concreta
+  └── interface UserRepository → EloquentUserRepository
+  └── El Service NO sabe que usa Eloquent. Podría usar fila.csv
+  └── Permite cambiar DB sin tocar el negocio
+  └── Clave para Hexagonal Architecture
+  └── Bien para: apps grandes, posible cambio de DB, tests con mocks
+
+Hexagonal / Clean Architecture en Laravel
+  └── El dominio NO depende de Laravel
+  └── Carpeta app/Domain/ — entidades, value objects, interfaces
+  └── Carpeta app/Application/ — servicios, casos de uso
+  └── Carpeta app/Infrastructure/ — Eloquent, controllers, APIs
+  └── Laravel es SOLO la infraestructura (web.php, controllers)
+  └── El negocio (Domain) no importa use Laravel ni Facades
+  └── Bien para: apps grandes con mucha lógica de negocio
+  └── Requiere disciplina. No lo intentes si no dominás Laravel básico
+
+Service Provider Pattern
+  └── Cómo Laravel arranca y registra todo
+  └── AppServiceProvider, RouteServiceProvider, etc.
+  └── bind() → singleton, app() → nueva instancia cada vez
+  └── register() para bindings, boot() cuando todos los providers están listos
+  └── Podés crear providers custom para agrupar registros
+
+Pipeline Pattern (Middleware / Actions encadenados)
+  └── Laravel middleware es un pipeline
+  └── Un request pasa por una cadena de clases antes de llegar
+  └── Cada una puede modificar el request, devolver response, o pasar al siguiente
+  └── También aplicable a acciones del negocio (acciones compuestas)
+
+═══ CUÁNDO USAR CADA UNA ═══
+
+| Arquitectura               | Cuándo usarla                           |
+|----------------------------|------------------------------------------|
+| MVC plano                  | Landing, portfolio, sitio chico (5-10 tabs) |
+| MVC + Services             | App mediana, API interna (11-30 tabs)       |
+| MVC + Services + Actions   | App con procesos complejos, reportes        |
+| Action Pattern             | APIs REST, equipo grande, legibilidad       |
+| Repository + Services      | Necesitás cambiar DB o tests avanzados      |
+| Hexagonal / Clean          | App grande (50+ tablas), dominio complejo   |
+| No uses arquitectura       | Prototipos, MVPs, proyectos de 1 semana     |
+
+═══ JAVA / SPRING BOOT ═══
+
+JVM  → Java Virtual Machine
+       La máquina virtual que ejecuta bytecode Java. Permite que Java
+       corra en cualquier sistema operativo. Incluye JIT y GC.
+
+JRE  → Java Runtime Environment
+       Lo mínimo para EJECUTAR Java. JVM + librerías. Sin compilador.
+
+JDK  → Java Development Kit
+       Todo lo necesario para DESARROLLAR. JRE + compilador (javac) +
+       herramientas (jar, javadoc, etc.).
+
+JIT  → Just-In-Time Compiler
+       Compila bytecode a código nativo DURANTE la ejecución.
+       La JVM identifica código "caliente" (se ejecuta mucho) y lo optimiza.
+
+GC   → Garbage Collector
+       Maneja memoria automáticamente. Libera objetos que ya no se usan.
+       No llamés System.gc() — no tenés control.
+
+JPA  → Jakarta Persistence API (antes Java Persistence API)
+       Especificación estándar de ORM para Java. Define cómo mapear
+       objetos a tablas. Hibernate es la implementación más usada.
+
+Hibernate → Implementación de JPA
+       ORM más popular de Java. @Entity, @Table, @Column.
+       Traduce objetos a SQL. Tiene cache, lazy loading, etc.
+
+POJO → Plain Old Java Object
+       Clase Java simple sin herencia de frameworks. Sin anotaciones
+       especiales. Un DTO es un POJO.
+
+Bean → Objeto manejado por Spring IoC Container
+       Spring crea y gestiona su ciclo de vida. Se define con @Component,
+       @Service, @Repository, @Bean.
+
+DI   → Dependency Injection
+       Spring te inyecta las dependencias automáticamente. En vez de
+       new Servicio(), ponés @Autowired y Spring lo resuelve.
+
+IoC  → Inversion of Control
+       El control del flujo lo tiene el framework, no tu código.
+       Spring decide cuándo crear objetos, cuándo inyectarlos.
+
+AOP  → Aspect-Oriented Programming
+       Separa preocupaciones transversales del código de negocio.
+       Ej: logging, transacciones, seguridad. @Transactional, @Aspect.
+
+RestController → @Controller + @ResponseBody
+       Controlador que devuelve datos (JSON) directamente, no vistas.
+       Para APIs REST.
+
+Autowired → Inyección automática de dependencias
+       Spring busca un bean compatible y lo asigna. Hoy se recomienda
+       inyección por constructor en vez de @Autowired.
+
+Request / Response → Objetos que encapsulan HTTP
+       HttpServletRequest (headers, params, body).
+       HttpServletResponse (status, headers, body).
+
+═══════════════════════════════════════════
+
+
+═══ WEB / GENERAL ═══
+
+HTTP  → HyperText Transfer Protocol
+       Protocolo de comunicación web. Stateless. Métodos: GET, POST,
+       PUT, PATCH, DELETE, OPTIONS, HEAD.
+
+HTTPS → HTTP Secure
+       HTTP sobre TLS/SSL. Cifrado. Hoy obligatorio para cualquier
+       sitio en producción.
+
+CDN  → Content Delivery Network
+       Red de servidores distribuidos geográficamente. Sirve assets
+       (CSS, JS, imágenes) desde el servidor más cercano al usuario.
+       Cloudflare, AWS CloudFront.
+
+DNS  → Domain Name System
+       Traduce dominios (google.com) a IPs (142.250.190.78).
+       Como la guía telefónica de internet.
+
+IDE  → Integrated Development Environment
+       Entorno de desarrollo. VS Code, IntelliJ IDEA, Eclipse.
+       No es "solo un editor" — tiene debugger, terminal, integración.
+
+SDK  → Software Development Kit
+       Conjunto de herramientas para desarrollar para una plataforma.
+       Ej: Android SDK, AWS SDK, Stripe SDK.
+
+CLI  → Command Line Interface
+       Interfaz de línea de comandos. git, npm, composer, artisan.
+
+SSH  → Secure Shell
+       Protocolo para conectarse a servidores remotos de forma segura.
+       puTTY, OpenSSH. Clave pública/privada.
+
+═══ VERSIONADO / GIT ═══
+
+VCS  → Version Control System
+       Sistema que registra cambios en archivos. Git es el estándar.
+
+PR   → Pull Request
+       Propuesta de cambio en GitHub/GitLab. Antes de mergear a main,
+       un compañero revisa el código.
+
+MR   → Merge Request
+       Lo mismo que PR pero en GitLab.
+
+HEAD → Puntero al commit actual en Git
+       Donde estás parado ahora. HEAD~1 es el commit anterior.
+
+STAGING → Área intermedia antes del commit
+       git add mueve archivos al staging. git commit los guarda.
+
+CHECKOUT → Cambiar de rama o restaurar archivos
+       git checkout main, git checkout -- archivo.txt.
+
+═══════════════════════════════════════════
+
+
+═══ PREGUNTAS FRECUENTES EN ENTREVISTAS ═══
+
+P: ¿Cuál es la diferencia entre GET y POST?
+R: GET es para obtener datos (seguro, idempotente, visible en URL).
+   POST es para crear/modificar (no idempotente, va en el body).
+
+P: ¿Qué es una transacción?
+R: Conjunto de operaciones que se ejecutan como una sola unidad.
+   Si falla una, todo se revierte (rollback). ACID garantiza esto.
+
+P: ¿Qué es inyección SQL? ¿Cómo la prevenís?
+R: Insertar código SQL malicioso en inputs. Se previene con:
+   ORM (Eloquent/JPA), prepared statements, escapar inputs.
+
+P: Diferencia entre autenticación y autorización?
+R: Autenticación = ¿quién sos? (login).
+   Autorización = ¿qué podés hacer? (roles, permisos).
+
+P: ¿Qué es un índice en DB?
+R: Estructura que acelera búsquedas. Como el índice de un libro.
+   Usá en columnas de WHERE y JOIN. No abuses — ralentiza escritura.
+
+P: ¿Qué es lazy loading vs eager loading?
+R: Lazy = carga relación solo cuando la accedés (más queries).
+   Eager = carga relación junto con el padre (JOIN, menos queries).
+   En Laravel: lazy por defecto, eager con with('relacion').
+   En JPA: FetchType.LAZY vs FetchType.EAGER.
+
+P: ¿Qué es CORS y cómo se soluciona?
+R: El navegador bloquea requests de un origen a otro por seguridad.
+   Se soluciona configurando headers Access-Control-Allow-Origin
+   en el servidor.
+
+═══════════════════════════════════════════
+
+
+Consejo para la entrevista
+──────────────────────────
+No te aprendas definiciones de memoria. Entendé el CONCEPTO y
+explicálo con tus palabras. Si usás un término, asegurate de poder
+explicarlo. Decir "usamos ORM" y no saber qué significa es peor que
+no haberlo mencionado.

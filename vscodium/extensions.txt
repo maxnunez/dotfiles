@@ -6,6 +6,7 @@ bradlc.vscode-tailwindcss
 cweijan.dbclient-jdbc
 cweijan.vscode-mysql-client2
 dbaeumer.vscode-eslint
+devsense.composer-php-vscode
 devsense.profiler-php-vscode
 dracula-theme.theme-dracula
 dsznajder.es7-react-js-snippets
@@ -20,6 +21,7 @@ ms-python.debugpy
 ms-python.python
 ms-python.vscode-python-envs
 ms-vscode.live-server
+onecentlin.laravel-blade
 onecentlin.laravel5-snippets
 pkief.material-icon-theme
 shufo.vscode-blade-formatter

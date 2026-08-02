@@ -1,0 +1,42 @@
+{
+  "Laravel blade if": {
+    "prefix": "@if",
+    "body": ["@if(${1:condition})", "\t$0", "@endif"],
+    "description": "Directiva @if"
+  },
+  "Laravel blade if-else": {
+    "prefix": "@ife",
+    "body": ["@if(${1:condition})", "\t$0", "@else", "\t$1", "@endif"],
+    "description": "Directiva @if / @else"
+  },
+  "Laravel blade foreach": {
+    "prefix": "@foreach",
+    "body": ["@foreach(${1:$items} as ${2:$item})", "\t$0", "@endforeach"],
+    "description": "Directiva @foreach"
+  },
+  "Laravel blade for": {
+    "prefix": "@for",
+    "body": ["@for(${1:$i} = 0; ${1:$i} < ${2:$n}; ${1:$i}++)", "\t$0", "@endfor"],
+    "description": "Directiva @for"
+  },
+  "Laravel blade section": {
+    "prefix": "@section",
+    "body": ["@section('${1:title}')", "\t$0", "@endsection"],
+    "description": "Directiva @section"
+  },
+  "Laravel blade extends": {
+    "prefix": "@extends",
+    "body": ["@extends('${1:layout}')"],
+    "description": "Directiva @extends"
+  },
+  "Laravel blade push": {
+    "prefix": "@push",
+    "body": ["@push('${1:scripts}')", "\t$0", "@endpush"],
+    "description": "Directiva @push"
+  },
+  "Laravel blade yield": {
+    "prefix": "@yield",
+    "body": ["@yield('${1:section}')"],
+    "description": "Directiva @yield"
+  }
+}

@@ -1,0 +1,752 @@
+HTML + CSS + JS + MAQUETACIÓN — Chuleta completa
+=================================================
+
+═══════════════════════════════════════════════════
+                     HTML
+═══════════════════════════════════════════════════
+
+ESTRUCTURA BASE
+───────────────
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Título</title>
+  <meta name="description" content="Resumen para SEO">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>    ← logo, nav, título
+  <main>      ← contenido principal (1 sola vez)
+  <section>   ← agrupa contenido relacionado
+  <article>   ← contenido independiente (post, card, noticia)
+  <aside>     ← contenido secundario (sidebar)
+  <footer>    ← pie
+  <nav>       ← navegación
+</body>
+</html>
+
+TAGS ESENCIALES
+───────────────
+<h1> a <h6>   → títulos (1 por página, jerarquía)
+<p>           → párrafo
+<a href="">   → link (target="_blank" para nueva pestaña)
+<img src="" alt=""> → imagen (SIEMPRE alt para accesibilidad)
+<ul>/<ol>     → listas sin orden / con orden
+<li>          → item de lista
+<table>       → tablas (solo para datos, no maquetar)
+<form>        → formulario
+<input>       → campo (type="text|email|password|number|file|hidden")
+<textarea>    → área de texto multilínea
+<select>      → dropdown
+<button>      → botón (type="submit" dentro de form o type="button")
+<div>         → contenedor neutro (no semántico)
+<span>        → contenedor inline neutro
+
+FORMULARIOS
+───────────
+<form action="/procesar" method="POST">
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" placeholder="tu@mail.com">
+
+  <label for="pais">País:</label>
+  <select id="pais" name="pais">
+    <option value="">Seleccioná</option>
+    <option value="bo">Bolivia</option>
+  </select>
+
+  <label>
+    <input type="checkbox" name="terminos"> Acepto términos
+  </label>
+
+  <button type="submit">Enviar</button>
+</form>
+
+ATRIBUTOS IMPORTANTES
+─────────────────────
+class       → para CSS/JS (múltiples clases separadas por espacio)
+id          → único por página (para ancla o JS)
+data-*      → datos personalizados (data-id="123")
+aria-*      → accesibilidad
+role         → rol semántico (role="navigation", role="alert")
+alt          → texto alternativo en imágenes (obligatorio)
+loading="lazy" → carga diferida de imágenes
+
+═══════════════════════════════════════════════════
+                     CSS
+═══════════════════════════════════════════════════
+
+SELECTORES
+──────────
+*           → todo (selector universal)
+div         → etiqueta
+.clase      → clase
+#id         → ID
+div p       → descendiente (p DENTRO de div)
+div > p     → hijo directo
+div + p     → hermano adyacente (p justo después de div)
+div ~ p     → hermanos generales
+[type="text"] → atributo
+:hover      → cuando pasás mouse
+:focus      → cuando está enfocado (inputs)
+:first-child → primer hijo
+:last-child  → último hijo
+:nth-child(n) → hijo número n
+:nth-child(odd/even) → impares/pares
+:not(.clase) → negación
+::before    → contenido antes (con content:"")
+::after     → contenido después (con content:"")
+
+BOX MODEL (la base de TODO)
+────────────────────────────
+┌─────────────────────────┐
+│         MARGIN          │  ← separación hacia afuera
+│  ┌───────────────────┐  │
+│  │      BORDER       │  │  ← borde visible
+│  │  ┌─────────────┐  │  │
+│  │  │   PADDING    │  │  │  ← separación hacia adentro
+│  │  │  ┌───────┐  │  │  │
+│  │  │  │ CONTENT│  │  │  │  ← el contenido real (texto/img)
+│  │  │  └───────┘  │  │  │
+│  │  └─────────────┘  │  │
+│  └───────────────────┘  │
+└─────────────────────────┘
+
+box-sizing: border-box;  ← IMPRESCINDIBLE: hace que padding y border
+                           NO agranden el tamaño total del elemento
+
+UNIDADES
+────────
+px    → pixels (fijo)
+em    → relativo al font-size del padre
+rem   → relativo al font-size del root (html), mejor que em
+%     → porcentaje del contenedor padre
+vh    → 1% del alto del viewport (100vh = pantalla completa)
+vw    → 1% del ancho del viewport
+ch    → ancho del caracter "0" (útil para max-width de texto)
+
+DISPLAY (cómo se comporta un elemento en la página)
+────────────────────────────────────────────────────
+display: block        → ocupa TODO el ancho, salta línea (div, p, h1)
+display: inline       → ocupa solo su contenido (span, a, strong)
+display: inline-block → inline pero respeta width/height/padding
+display: none         → desaparece (no ocupa espacio)
+display: flex         → layout flexible (1D)
+display: grid         → layout en grilla (2D)
+
+FLEXBOX (para layouts 1D — fila o columna)
+───────────────────────────────────────────
+.contenedor {
+  display: flex;
+  flex-direction: row | column | row-reverse | column-reverse;
+  justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
+  align-items: stretch | flex-start | flex-end | center | baseline;
+  flex-wrap: nowrap | wrap;
+  gap: 10px;  /* separación entre hijos */
+}
+
+/* En los hijos */
+.hijo {
+  flex: 1;            /* crecer = 1, encoger = 1, base = 0 */
+  flex: 0 0 auto;     /* no crece, no encoge, tamaño natural */
+  align-self: center; /* sobreescribe align-items del padre */
+  order: -1;          /* reordenar visualmente */
+}
+
+Ej flexbox común:
+├───┬───┬───┤         ← justify-content: center
+├───┼───┼───┤         ← align-items: center (centrado vertical)
+
+GRID (para layouts 2D — filas y columnas)
+────────────────────────────────────────────
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;  /* 3 columnas iguales */
+  grid-template-columns: repeat(3, 1fr);  /* igual */
+  grid-template-columns: 200px 1fr 200px; /* sidebar fijo + contenido + sidebar */
+  grid-template-rows: auto 1fr auto;  /* header + contenido + footer */
+  gap: 20px;  /* separación entre celdas */
+  align-items: center;
+}
+
+.hijo {
+  grid-column: 1 / 3;  /* ocupa de columna 1 a 3 */
+  grid-column: span 2; /* ocupa 2 columnas */
+}
+
+Ej grid común:
+┌──────┬──────┬──────┐
+│   header (span 3)   │
+├──────┼──────┼──────┤
+│ nav  │ main │ ads  │  ← main ocupa 2 columnas (span 2)
+├──────┼──────┼──────┤
+│   footer (span 3)   │
+└──────┴──────┴──────┘
+
+POSITIONING
+───────────
+position: static    → flujo normal (default)
+position: relative  → mismo flujo, pero podés moverlo con top/left/right/bottom
+position: absolute   → sale del flujo, se posiciona respecto al padre con position:relative
+position: fixed     → fijo en la ventana (no scrollea, ej: navbar)
+position: sticky    → sigue el scroll hasta cierto punto, después se pega (mejor que fixed para headers)
+
+Centrado vertical + horizontal (clásico):
+.padre { display: flex; justify-content: center; align-items: center; height: 100vh; }
+
+RESPONSIVE / MEDIA QUERIES
+───────────────────────────
+/* Mobile-first: base es mobile, después agrandás */
+
+/* Mobile (default) */
+body { font-size: 16px; }
+
+/* Tablet */
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  body { font-size: 18px; }
+}
+
+/* Desktop-first: base es desktop, después achicás */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+}
+
+PROPIEDADES COMUNES
+───────────────────
+color              → color de texto
+background         → fondo (color, imagen, gradiente)
+background-color   → color de fondo
+background-image   → imagen de fondo
+font-size          → tamaño de letra
+font-weight        → grosor (normal=400, bold=700)
+font-family        → tipografía
+text-align         → alinear texto (left, center, right, justify)
+line-height        → interlineado (1.5 = 150%)
+margin             → espacio exterior
+padding            → espacio interior
+border             → borde (1px solid black)
+border-radius      → esquinas redondeadas
+box-shadow         → sombra (0 2px 4px rgba(0,0,0,0.1))
+opacity            → transparencia (0 a 1)
+overflow           → qué pasa si el contenido desborda (hidden, auto, scroll, visible)
+cursor: pointer    → mano al hacer hover
+transition         → animación suave (all 0.3s ease)
+transform          → rotar, escalar, mover (rotate(45deg), scale(1.2))
+z-index            → superposición (mayor = encima)
+
+CSS NAMING CONVENTIONS (BEM)
+─────────────────────────────
+Bloque__Elemento--Modificador
+
+.card {}              ← bloque
+.card__title {}       ← elemento del bloque
+.card__button {}      ← elemento
+.card--featured {}    ← modificador del bloque
+.card__button--large {} ← modificador del elemento
+
+Siempre clases, NUNCA IDs para estilos.
+Nunca anidar más de 3 niveles.
+
+═══════════════════════════════════════════════════
+               MAQUETACIÓN PRÁCTICA
+═══════════════════════════════════════════════════
+
+PATRONES DE LAYOUT COMUNES
+───────────────────────────
+
+1. Centrado de contenido
+   .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+2. Navbar horizontal
+   nav { display: flex; justify-content: space-between; align-items: center; }
+
+3. Cards grid (responsive sin media queries)
+   .grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+     gap: 20px;
+   }
+
+4. Holy Grail (header + 3 cols + footer)
+   .layout {
+     display: grid;
+     grid-template-rows: auto 1fr auto;
+     grid-template-columns: 200px 1fr 200px;
+     min-height: 100vh;
+   }
+   .layout header { grid-column: 1 / -1; }
+   .layout footer { grid-column: 1 / -1; }
+
+5. Sticky footer (siempre abajo aunque falte contenido)
+   body { display: flex; flex-direction: column; min-height: 100vh; }
+   main { flex: 1; }
+
+6. Hero section (imagen de fondo + texto centrado)
+   .hero {
+     display: flex; align-items: center; justify-content: center;
+     height: 60vh;
+     background: url('hero.jpg') center/cover no-repeat;
+   }
+
+MOBILE-FIRST (hacé esto SIEMPRE)
+─────────────────────────────────
+/* Mobile first = base para celular, después mejorás */
+
+/* Celular — base */
+.cards { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+
+/* Tablet */
+@media (min-width: 768px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+Mobile-first o Desktop-first:
+- Mobile-first: empezá pequeño, sumá con min-width (recomendado)
+- Desktop-first: empezá grande, sacá con max-width
+- Mobile-first es más fácil de mantener, Google lo prefiere
+
+Buenas prácticas de maquetación:
+- Siempre box-sizing: border-box en todo (* { box-sizing: border-box; })
+- Usá rem en vez de px para tamaños de texto
+- No uses px para anchos (usá %, fr, o max-width)
+- Imágenes: max-width: 100% para que no desborden
+- Separá contenido de estilos (no pongas style="" en HTML)
+
+═══════════════════════════════════════════════════
+                  JAVASCRIPT
+═══════════════════════════════════════════════════
+
+VARIABLES Y TIPOS
+─────────────────
+const   → no se reasigna (usá SIEMPRE a menos que necesites reasignar)
+let     → se reasigna (solo cuando necesitás cambiar el valor)
+var     → no usés (obsoleto, ámbito de función, confuso)
+
+Tipos:
+string  → "hola", 'hola', `hola ${nombre}`
+number  → 42, 3.14
+boolean → true, false
+null    → intencionalmente vacío
+undefined → no definido
+array   → [1, 2, 3]
+object  → { nombre: "Max", edad: 30 }
+
+FUNCIONES
+─────────
+// Tradicional
+function sumar(a, b) {
+  return a + b;
+}
+
+// Arrow function (usá esta)
+const sumar = (a, b) => a + b;
+
+// Con cuerpo
+const doble = num => num * 2;
+
+// Sin parámetros
+const hola = () => console.log("hola");
+
+CONDICIONALES
+─────────────
+if (edad >= 18) {
+  console.log("mayor");
+} else {
+  console.log("menor");
+}
+
+// Ternario (para asignaciones simples)
+const msg = edad >= 18 ? "mayor" : "menor";
+
+// AND shortcut (ejecuta solo si es true)
+usuario && console.log(usuario.nombre);
+
+// OR shortcut (valor por defecto)
+const nombre = usuario.nombre || "Invitado";
+
+// Optional chaining (no rompe si es null/undefined)
+const ciudad = usuario?.direccion?.ciudad;
+
+// Nullish coalescing (solo null/undefined, no falsy)
+const total = precio ?? 0;
+
+ARRAYS (métodos clave)
+──────────────────────
+arr.push(4)              → agrega al final
+arr.pop()                → saca del final
+arr.unshift(0)           → agrega al inicio
+arr.shift()              → saca del inicio
+arr.includes(2)          → true/false si existe
+arr.indexOf(2)           → índice del elemento
+
+arr.map(x => x * 2)      → transforma CADA elemento (devuelve nuevo array)
+arr.filter(x => x > 2)   → filtra elementos (devuelve nuevo array)
+arr.find(x => x > 2)     → encuentra el PRIMERO que cumple
+arr.findIndex(x => x>2)  → índice del primero que cumple
+arr.some(x => x > 2)     → true si ALGUNO cumple
+arr.every(x => x > 0)    → true si TODOS cumplen
+arr.reduce((acc, x) => acc + x, 0) → reduce a un solo valor
+
+DOM — Manipulación de HTML con JS
+──────────────────────────────────
+// Seleccionar elementos
+document.querySelector('.clase')     → el primero que coincida
+document.querySelectorAll('.clase')  → todos (NodeList, parecido a array)
+document.getElementById('id')
+document.getElementsByClassName('clase')
+
+// Leer / modificar
+el.textContent = "nuevo texto"        → solo texto
+el.innerHTML = "<b>html</b>"          → HTML (cuidado con XSS)
+el.classList.add('activo')
+el.classList.remove('activo')
+el.classList.toggle('activo')
+el.style.color = 'red'
+el.dataset.id = '123'                 → data-id en HTML
+el.getAttribute('src')
+el.setAttribute('src', 'foto.jpg')
+
+// Crear y agregar
+const div = document.createElement('div');
+div.textContent = "hola";
+padre.appendChild(div);               → al final
+padre.prepend(div);                   → al inicio
+padre.insertBefore(div, referencia);
+
+// Eliminar
+el.remove();
+padre.removeChild(el);
+
+EVENTOS
+───────
+elemento.addEventListener('click', (e) => {
+  console.log(e.target);  // el elemento clickeado
+});
+
+Eventos comunes: click, submit, input, change, mouseover,
+mouseout, keydown, keyup, scroll, resize, DOMContentLoaded
+
+// Delegación de eventos (para elementos dinámicos)
+lista.addEventListener('click', (e) => {
+  if (e.target.matches('li')) {
+    console.log('click en li');
+  }
+});
+
+// Prevenir comportamiento por defecto
+form.addEventListener('submit', (e) => {
+  e.preventDefault();  // no recarga la página
+  // procesar form con JS
+});
+
+FETCH — Llamadas a API
+───────────────────────
+// GET
+fetch('/api/usuarios')
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+// POST
+fetch('/api/usuarios', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ nombre: 'Max', email: 'max@mail.com' })
+})
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+// Con async/await (más limpio)
+async function obtenerUsuarios() {
+  try {
+    const res = await fetch('/api/usuarios');
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+DESTRUCTURING (muy usado)
+───────────────────────────
+const { nombre, email } = usuario;   // sacá propiedades de objeto
+const [primero, segundo] = arr;       // sacá elementos de array
+
+SPREAD OPERATOR (...)
+─────────────────────
+const copia = [...arr];              // copiar array
+const nuevo = [...arr, 4];           // agregar elemento
+const obj2 = { ...obj1, edad: 31 };  // copiar y sobreescribir objeto
+
+═══════════════════════════════════════════════════
+         RECETA DE MAQUETACIÓN (flujo completo)
+═══════════════════════════════════════════════════
+
+1. Analizar el diseño (Lunacy o el que tengas)
+   └── Identificá: layout general, colores, tipografías, espacios
+
+2. HTML semántico primero (SIN CSS aún)
+   └── header, main, section, footer
+   └── Contenido real, sin divs al pedo
+
+3. CSS reset / base
+   └── *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+   └── body { font-family: ..., line-height: 1.6; color: ... }
+   └── img { max-width: 100%; display: block; }
+
+4. Layout grande
+   └── container, grid general, header/footer
+   └── Mobile-first: cómo se ve en celular
+
+5. Componentes
+   └── Cards, navbar, botones, formularios
+   └── BEM naming
+
+6. Responsive
+   └── Media queries para tablet y desktop
+   └── Probá en diferentes tamaños
+
+7. Refinamiento
+   └── Espaciados, sombras, transiciones, hover effects
+   └── Tipografía fina
+
+═══════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════
+        LÓGICA DE PROGRAMACIÓN (para practicar)
+═══════════════════════════════════════════════════
+
+EJERCICIOS POR NIVEL (hacé estos para agarrar lógica)
+───────────────────────────────────────────────────
+
+Básicos (empezá acá):
+  ─ Número par o impar
+  ─ Factorial de un número (5! = 5×4×3×2×1)
+  ─ Fibonacci hasta N (0,1,1,2,3,5,8,13...)
+  ─ ¿Es palíndromo? ("neuquen" al revés es "neuquen")
+  ─ Contar vocales en un texto
+  ─ Número primo (solo divisible por 1 y sí mismo)
+  ─ Invertir un string
+  ─ Tabla de multiplicar del 1 al 10
+
+Intermedios:
+  ─ FizzBuzz (clásico de entrevistas)
+  ─ Ordenar array sin usar sort()
+  ─ Encontrar el número que más se repite (moda)
+  ─ Aplanar array anidado: [1,[2,[3]]] → [1,2,3]
+  ─ Anagrams: "roma" y "amor" tienen las mismas letras
+  ─ Validar paréntesis balanceados: "({[]})" bien, "({[})" mal
+
+Con arrays/objetos (JS práctico):
+  ─ Agrupar usuarios por edad
+  ─ Buscar duplicados en un array
+  ─ Unir dos arrays sin repetidos
+  ─ Transformar array de objetos a un objeto clave-valor
+
+CONCEPTOS DE LÓGICA
+────────────────────
+
+Variable → Caja que guarda un valor. Cambia durante el programa.
+           let nombre = "Max"; nombre = "Juan";
+
+Condicional → Decisión. Si pasa X, hacé Y; si no, hacé Z.
+           if (edad >= 18) { ... } else { ... }
+
+Bucle → Repetir algo hasta que se cumpla una condición.
+        for (let i = 0; i < 10; i++) { ... }
+        while (condicion) { ... }
+
+Operador lógico → AND (&&), OR (||), NOT (!)
+        if (edad >= 18 && tieneLicencia) { ... }
+
+Función → Bloque de código reutilizable. Entrada → proceso → salida.
+        function doble(x) { return x * 2; }
+
+Recursión → Una función que se llama a sí misma.
+        function factorial(n) {
+          return n <= 1 ? 1 : n * factorial(n - 1);
+        }
+
+Algoritmo → Secuencia de pasos para resolver un problema.
+        Como una receta de cocina. Pasos ordenados, finitos, claros.
+
+Complejidad → Cómo escala tu algoritmo con más datos.
+        O(1) = constante (acceso a array por índice)
+        O(n) = lineal (buscar en array sin ordenar)
+        O(n²) = cuadrático (doble bucle anidado)
+        Nunca optimices antes de tiempo. Primero que funcione.
+
+═══════════════════════════════════════════════════
+     CÓDIGO ESTRUCTURADO VS POO (con EJEMPLOS)
+═══════════════════════════════════════════════════
+
+CÓDIGO ESTRUCTURADO (programación tradicional)
+──────────────────────────────────────────────
+Funciones sueltas, datos separados de la lógica.
+Se programa como una secuencia de instrucciones.
+
+EJEMPLO — Sistema de usuarios ESTRUCTURADO:
+───────────────────────────────────────────
+$usuarios = [
+  ["nombre" => "Max", "email" => "max@mail.com", "rol" => "admin"],
+  ["nombre" => "Juan", "email" => "juan@mail.com", "rol" => "user"],
+];
+
+function enviarEmail($usuario, $mensaje) {
+  // lógica de envío
+  echo "Email enviado a " . $usuario["email"];
+}
+
+function esAdmin($usuario) {
+  return $usuario["rol"] === "admin";
+}
+
+// Uso:
+foreach ($usuarios as $u) {
+  if (esAdmin($u)) {
+    enviarEmail($u, "Bienvenido admin");
+  }
+}
+
+Problemas:
+  × Los datos son arrays asociativos (sin validación de estructura)
+  × Si cambio "email" a "correo", explota todo
+  × Código duplicado si otra parte también usa usuarios
+  × Dificil de testear (todo son funciones sueltas)
+
+────────────────────────────────────────────────────
+
+POO — Mismo ejemplo con OBJETOS:
+─────────────────────────────────
+class Usuario {
+  public function __construct(
+    private string $nombre,
+    private string $email,
+    private string $rol
+  ) {}
+
+  public function esAdmin(): bool {
+    return $this->rol === "admin";
+  }
+
+  public function notificar(string $mensaje): void {
+    // lógica para enviar email a $this->email
+    echo "Email enviado a {$this->email}";
+  }
+}
+
+class Notificador {
+  public function notificarAdmins(array $usuarios, string $msg): void {
+    foreach ($usuarios as $usuario) {
+      if ($usuario->esAdmin()) {
+        $usuario->notificar($msg);
+      }
+    }
+  }
+}
+
+// Uso:
+$usuarios = [
+  new Usuario("Max", "max@mail.com", "admin"),
+  new Usuario("Juan", "juan@mail.com", "user"),
+];
+$notificador = new Notificador();
+$notificador->notificarAdmins($usuarios, "Bienvenido admin");
+
+Ventajas:
+  ✓ Los datos y su comportamiento están JUNTOS
+  ✓ Si cambio el email, solo toco la clase Usuario
+  ✓ Cada clase tiene UNA responsabilidad (S de SOLID)
+  ✓ Fácil de testear (creo un Usuario de prueba y listo)
+  ✓ Reutilizable en cualquier parte del sistema
+
+────────────────────────────────────────────────────
+
+DIFERENCIAS CLAVE (para la entrevista)
+──────────────────────────────────────
+
+| Aspecto              | Estructurado                  | POO                              |
+|----------------------|-------------------------------|----------------------------------|
+| Datos                | Separados (arrays/variables) | Dentro de objetos                |
+| Organización         | Funciones sueltas             | Clases con métodos               |
+| Reutilización        | Copiar y pegar (o funciones)  | Herencia, composición            |
+| Mantenimiento        | Cambiar afecta todo           | Cambiás una clase, listo         |
+| Escala               | Bien para scripts chicos      | Sistemas grandes/complejos       |
+| Testing              | Dificil (datos globales)      | Fácil (inyección de dependencias)|
+| Estado               | Variables globales            | Cada objeto maneja su estado     |
+
+¿CUÁNDO USAR CADA UNO?
+───────────────────────
+Usá estructurado para:
+  ─ Scripts de una sola tarea (renombrar archivos)
+  ─ Automatización chica
+  ─ Prototipos rápidos
+
+Usá POO para:
+  ─ Apps web (Laravel, Spring Boot)
+  ─ Sistemas con más de 5-10 funcionalidades
+  ─ Cuando otras personas tocan el código
+  ─ Cuando necesitás escalar
+
+En la práctica, incluso en proyectos "estructurados" terminás
+usando objetos. Hoy ningún framework serio usa solo funciones
+sueltas.
+
+═══════════════════════════════════════════════════
+         BUENAS PRÁCTICAS (lo que esperan ver)
+═══════════════════════════════════════════════════
+
+1. Nombres claros
+   ─ mal: function getData($a, $b) { }
+   ─ bien: function obtenerUsuarioPorEmail(string $email): ?Usuario
+
+2. Una responsabilidad por función/método
+   ─ mal: function procesarUsuario() { valida, guarda, envía email, loggea }
+   ─ bien: validarUsuario(), guardarUsuario(), notificarUsuario(), loggear()
+
+3. No mezclar responsabilidades (separación de concerns)
+   ─ El controller NO debe tener SQL
+   ─ El modelo NO debe tener HTML
+   ─ JS NO debe tener lógica de negocio sensible
+
+4. Código no se repite (DRY)
+   ─ Si copiaste y pegaste, creá una función
+
+5. Validar entradas SIEMPRE
+   ─ El usuario va a mandar cualquier cosa. Si es input, validalo.
+
+6. Manejar errores
+   ─ No dejes que la app explote. try/catch, mostrar mensaje amigable.
+
+7. Escribir código como si otro lo fuera a leer
+   ─ Porque va a ser así. Tu yo del futuro también es otro.
+
+8. No optimizar antes de tiempo (YAGNI + KISS)
+   ─ Primero funciona, después es correcto, después rápido.
+
+9. Versionado (Git)
+   ─ Commits chicos y frecuentes. Mensajes claros.
+
+10. Probar el código
+    ─ Manualmente al menos. Después con tests automatizados.
+
+═══════════════════════════════════════════════════
+
+Tip final: No memorices. Entendé los conceptos y practicá.
+Un programador no es el que sabe sintaxis, es el que RESUELVE
+PROBLEMAS.

@@ -1,0 +1,37 @@
+{
+  "Python print": {
+    "prefix": "pr",
+    "body": ["print($1)"],
+    "description": "Print"
+  },
+  "Python print f-string": {
+    "prefix": "prf",
+    "body": ["print(f\"$1\")"],
+    "description": "Print con f-string"
+  },
+  "Python function": {
+    "prefix": "fn",
+    "body": ["def ${1:name}(${2:params}):", "\t$0"],
+    "description": "Definición de función"
+  },
+  "Python class": {
+    "prefix": "cls",
+    "body": ["class ${1:Name}:", "\tdef __init__(self${2:, ${3:arg}}):", "\t\t$0"],
+    "description": "Definición de clase"
+  },
+  "Python if main": {
+    "prefix": "main",
+    "body": ["if __name__ == \"__main__\":", "\t$0"],
+    "description": "Guard if __main__"
+  },
+  "Python list comprehension": {
+    "prefix": "lc",
+    "body": ["[${1:x} for ${1:x} in ${2:items}${3: if ${4:condition}}]"],
+    "description": "List comprehension"
+  },
+  "Python dict comprehension": {
+    "prefix": "dc",
+    "body": ["{${1:k}: ${2:v} for ${1:k}, ${2:v} in ${3:items}}"],
+    "description": "Dict comprehension"
+  }
+}

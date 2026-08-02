@@ -1,0 +1,42 @@
+{
+  "console.log": {
+    "prefix": "cl",
+    "body": ["console.log($1);"],
+    "description": "Console log"
+  },
+  "console.dir": {
+    "prefix": "cd",
+    "body": ["console.dir($1, { depth: null });"],
+    "description": "Console dir con profundidad completa"
+  },
+  "function": {
+    "prefix": "fn",
+    "body": ["function ${1:name}(${2:params}) {", "\t$0", "}"],
+    "description": "Declaración de función"
+  },
+  "arrow function": {
+    "prefix": "afn",
+    "body": ["const ${1:name} = (${2:params}) => {", "\t$0", "};"],
+    "description": "Arrow function const"
+  },
+  "for loop": {
+    "prefix": "for",
+    "body": ["for (let ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {", "\t$0", "}"],
+    "description": "Bucle for"
+  },
+  "for...of": {
+    "prefix": "forof",
+    "body": ["for (const ${1:item} of ${2:items}) {", "\t$0", "}"],
+    "description": "Bucle for...of"
+  },
+  "import": {
+    "prefix": "imp",
+    "body": ["import ${1:name} from '${2:module}';"],
+    "description": "Import ES modules"
+  },
+  "destructuring": {
+    "prefix": "des",
+    "body": ["const { $1 } = ${2:obj};"],
+    "description": "Destructuring object"
+  }
+}
