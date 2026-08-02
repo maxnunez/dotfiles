@@ -12,6 +12,7 @@
   },
   "tailwindCSS.emmetCompletions": true,
   "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.validate": [
     "javascript",
@@ -37,10 +38,102 @@
   "editor.fontSize": 14,
   "editor.lineHeight": 22,
   "terminal.integrated.fontFamily": "'Cascadia Code NF', monospace",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Dracula Theme",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorStyle": "line",
+  "editor.cursorWidth": 2,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.minimap.enabled": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "mouseover",
+  "editor.renderWhitespace": "selection",
+  "editor.wordWrap": "off",
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true,
+  "editor.autoClosingBrackets": "always",
+  "editor.linkedEditing": true,
+  "editor.smoothScrolling": true,
+  "editor.scrollBeyondLastLine": false,
+  "editor.renderLineHighlight": "all",
+  "editor.stickyScroll.enabled": true,
+  "editor.gotoLocation.multiple": "peek",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.trimAutoWhitespace": true,
+  "editor.showFoldingControls": "always",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.inlineSuggest.enabled": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/.git": true
+  },
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.symbolPath": "on",
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 18,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.wrapTabs": true,
+  "workbench.list.smoothScrolling": true,
+  "window.zoomLevel": 0,
+  "window.titleBarStyle": "custom",
+  "window.commandCenter": true,
+  "window.autoDetectColorScheme": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "python.defaultInterpreterPath": "/usr/bin/python3",
   "python.terminal.activateEnvironment": false,
   "python.testing.pytestEnabled": true,
-  "python.analysis.typeCheckingMode": "basic",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Dimmed+Vibrant"
+  "python.analysis.typeCheckingMode": "basic"
 }
