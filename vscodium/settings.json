@@ -135,5 +135,11 @@
   "python.defaultInterpreterPath": "/usr/bin/python3",
   "python.terminal.activateEnvironment": false,
   "python.testing.pytestEnabled": true,
-  "python.analysis.typeCheckingMode": "basic"
+  "python.analysis.typeCheckingMode": "basic",
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "errorLens.messageEnabled": true,
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.addVerticalPadding": false,
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.general.showActivityBarBadge": true
 }
