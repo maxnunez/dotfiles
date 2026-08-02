@@ -256,7 +256,7 @@ bindsym $mod+Shift+o exec --no-startup-id /home/max/.local/bin/lock-screen
 bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
 
 # ─── Limpiar notificaciones pegadas ──────────────
-bindsym $mod+n exec --no-startup-id bash -c "dunstctl close-all; killall dunst; sleep 0.3; dunst &"
+bindsym $mod+n exec --no-startup-id /home/max/.local/bin/dunst-restart
 
 # ─── Seleccionar red ───────────────────────────────
 bindsym $mod+Ctrl+n exec --no-startup-id $term -e nmtui-connect
