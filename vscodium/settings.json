@@ -35,9 +35,12 @@
   "editor.snippetSuggestions": "top",
   "editor.fontFamily": "'Cascadia Code NF', 'Cascadia Code', monospace",
   "editor.fontLigatures": true,
-  "editor.fontSize": 14,
-  "editor.lineHeight": 22,
+  "editor.fontSize": 16,
+  "editor.lineHeight": 26,
+  "editor.letterSpacing": 0.3,
+  "editor.fontWeight": "normal",
   "terminal.integrated.fontFamily": "'Cascadia Code NF', monospace",
+  "terminal.integrated.fontSize": 15,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Dracula Theme",
   "editor.cursorSmoothCaretAnimation": "on",
@@ -165,5 +168,16 @@
     "other": "on",
     "comments": "on",
     "strings": "on"
+  },
+  "editor.renderLineHighlight": "all",
+  "editor.occurrencesHighlight": "singleFile",
+  "workbench.colorCustomizations": {
+    "editor.lineHighlightBackground": "#1A2A2A",
+    "editor.lineHighlightBorder": "#3A4A4A",
+    "editor.selectionBackground": "#264F78",
+    "editor.inactiveSelectionBackground": "#1E4660",
+    "editor.findMatchBackground": "#5B3A00",
+    "editor.findMatchHighlightBackground": "#3A2A00",
+    "editorCursor.foreground": "#F8F8F2"
   }
 }

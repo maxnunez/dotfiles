@@ -29,3 +29,4 @@ streetsidesoftware.code-spell-checker-spanish
 syler.sass-indented
 usernamehw.errorlens
 vue.volar
+zjffun.snippetsmanager

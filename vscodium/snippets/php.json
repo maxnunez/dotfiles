@@ -1,0 +1,17 @@
+{
+  "Laravel dd": {
+    "prefix": "dd",
+    "body": ["dd($1);"],
+    "description": "Laravel dump and die"
+  },
+  "Laravel dump": {
+    "prefix": "dump",
+    "body": ["dump($1);"],
+    "description": "Laravel dump"
+  },
+  "PHP function": {
+    "prefix": "fn",
+    "body": ["function ${1:name}(${2:params}) {", "\t$0", "}"],
+    "description": "Define una función PHP"
+  }
+}

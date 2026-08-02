@@ -1,0 +1,20 @@
+{
+  "HTML5 boilerplate": {
+    "prefix": "html5",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"es\">",
+      "<head>",
+      "\t<meta charset=\"UTF-8\">",
+      "\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "\t<title>${1:Documento}</title>",
+      "\t<link rel=\"stylesheet\" href=\"${2:style.css}\">",
+      "</head>",
+      "<body>",
+      "\t$0",
+      "</body>",
+      "</html>"
+    ],
+    "description": "Boilerplate HTML5 en español"
+  }
+}
