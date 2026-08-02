@@ -1,0 +1,14 @@
+com.bitwarden.desktop
+com.discordapp.Discord
+com.google.ChromeDev
+com.icons8.Lunacy
+com.jgraph.drawio.desktop
+com.usebruno.Bruno
+io.dbeaver.DBeaverCommunity
+io.github.diegopvlk.Tomatillo
+md.obsidian.Obsidian
+org.flameshot.Flameshot
+org.gnome.clocks
+org.gnome.Snapshot
+org.kde.okular
+org.telegram.desktop
