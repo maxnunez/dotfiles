@@ -1,0 +1,17 @@
+amiralizadeh9480.laravel-extra-intellisense
+astro-build.astro-vscode
+bmewburn.vscode-intelephense-client
+bradlc.vscode-tailwindcss
+cweijan.dbclient-jdbc
+cweijan.vscode-mysql-client2
+dbaeumer.vscode-eslint
+dsznajder.es7-react-js-snippets
+ecmel.vscode-html-css
+esbenp.prettier-vscode
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-python-envs
+onecentlin.laravel5-snippets
+shufo.vscode-blade-formatter
+syler.sass-indented
+vue.volar

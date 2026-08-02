@@ -1,0 +1,39 @@
+{
+  "css.enabledLanguages": ["html", "blade", "vue", "astro"],
+  "css.styleSheets": [
+    "**/*.{css,scss}",
+    "**/node_modules/bootstrap/dist/css/bootstrap.css",
+    "**/node_modules/tailwindcss/**/*.css"
+  ],
+  "tailwindCSS.includeLanguages": {
+    "blade": "html",
+    "astro": "html",
+    "vue": "html"
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "typescript.tsdk": "",
+  "intelephense.files.maxSize": 5000000,
+  "intelephense.environment.phpVersion": "8.3",
+  "files.associations": {
+    "*.blade.php": "blade"
+  },
+  "emmet.includeLanguages": {
+    "blade": "html",
+    "astro": "html"
+  },
+  "editor.suggestSelection": "first",
+  "editor.snippetSuggestions": "top",
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "python.terminal.activateEnvironment": false,
+  "python.testing.pytestEnabled": true,
+  "python.analysis.typeCheckingMode": "basic"
+}
