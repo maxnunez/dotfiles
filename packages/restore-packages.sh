@@ -26,6 +26,24 @@ if [ -f "$(dirname "$0")/flatpak.txt" ]; then
   xargs -a "$(dirname "$0")/flatpak.txt" flatpak install -y flathub
 fi
 
+# ─── Paquetes Homebrew ────────────────────────────────
+if [ -f "$(dirname "$0")/brew.txt" ] && command -v brew &>/dev/null; then
+  echo ""
+  echo "🍺 Restaurando $(wc -l < "$(dirname "$0")/brew.txt") paquetes Homebrew..."
+  xargs -a "$(dirname "$0")/brew.txt" brew install -y
+elif [ ! -f "$(dirname "$0")/brew.txt" ]; then
+  echo "⚠️  No se encontró brew.txt"
+else
+  echo "⚠️  brew no está instalado. Ejecutá install.sh primero (instala Homebrew)."
+fi
+
+# ─── Paquetes pip ─────────────────────────────────────
+if [ -f "$(dirname "$0")/pip.txt" ]; then
+  echo ""
+  echo "🐍 Restaurando $(wc -l < "$(dirname "$0")/pip.txt") paquetes pip..."
+  xargs -a "$(dirname "$0")/pip.txt" pip3 install -y
+fi
+
 echo ""
 echo "✅ Paquetes restaurados."
-echo "   Recordá: algunos repos (VSCodium, Brave, etc.) se configuran en install.sh"
+echo "   Recordá: algunos repos (VSCodium, Brave, etc.) se configuran en restore-repos.sh"

@@ -68,7 +68,9 @@ chmod +x restore-packages.sh restore-repos.sh
 |---------|--------|
 | `apt-manual.txt` | 346 paquetes apt instalados a mano |
 | `flatpak.txt` | 14 apps Flatpak |
-| `restore-packages.sh` | Restaura apt + flatpak |
+| `brew.txt` | 69 paquetes Homebrew |
+| `pip.txt` | 75 paquetes pip |
+| `restore-packages.sh` | Restaura apt + flatpak + brew + pip |
 | `apt-repos/` | Repos apt no estándar + keyrings (VSCodium, Brave, etc.) |
 | `restore-repos.sh` | Instala repos + keyrings + VSCodium settings/extensiones |
 
