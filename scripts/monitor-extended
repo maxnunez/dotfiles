@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Activa/desactiva la pantalla externa (HDMI1) como extensión a la derecha.
+# Basado en perfiles autorandr:
+#   extended   -> eDP1 + HDMI1 (segunda pantalla encendida)
+#   internal   -> solo notebook (eDP1)
+# Uso: monitor-extended [on|off|toggle]
+set -euo pipefail
+
+MODE="${1:-toggle}"
+
+apply() {
+    autorandr --load "$1"
+    if [ -f /tmp/current-wallpaper-path ]; then
+        feh --bg-fill "$(cat /tmp/current-wallpaper-path)"
+    fi
+}
+
+case "$MODE" in
+    on)       apply extended ;;
+    off)      apply internal ;;
+    toggle)
+        if xrandr --query | grep -qE "HDMI1 connected [0-9]"; then
+            apply internal
+        else
+            apply extended
+        fi
+        ;;
+    *) echo "uso: monitor-extended [on|off|toggle]"; exit 1 ;;
+esac

@@ -70,6 +70,14 @@ bindsym $mod+grave exec --no-startup-id bash -c "$term --class scratchpad-term &
 # ─── Mover ventana a workspace y seguirlo ───────────
 bindsym $mod+Shift+BackSpace move workspace to output left; workspace prev
 
+# ─── Mover workspace a otro monitor con flechas ─────
+bindsym $mod+Shift+Right move workspace to output right
+bindsym $mod+Shift+Left move workspace to output left
+
+# ─── Segunda pantalla (HDMI1) ────────────────────────
+# Super+Shift+M : toggle pantalla externa extendida / solo notebook
+bindsym $mod+Shift+m exec --no-startup-id ~/.local/bin/monitor-extended toggle
+
 # ─── Redimensionar ─────────────────────────────────
 mode "resize" {
     bindsym h resize shrink width 10 px or 10 ppt
@@ -130,10 +138,19 @@ bindsym $mod+z focus child
 # ─── Apps rápidas ───────────────────────────────────
 bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+n exec nvim
-bindsym $mod+Shift+t exec thunar
-bindsym $mod+Shift+i exec flatpak run md.obsidian.Obsidian
+bindsym $mod+Shift+t exec --no-startup-id kitty -e yazi
+bindsym $mod+Ctrl+Shift+t exec thunar
+bindsym $mod+Shift+i exec --no-startup-id /home/max/.local/bin/scratchpad-toggle obsidian flatpak run md.obsidian.Obsidian
 bindsym $mod+Shift+p exec flatpak run io.github.diegopvlk.Tomatillo
+
+# ─── Pizarra (gromit-mpx) ────────────────────────────
+exec_always --no-startup-id gromit-mpx --active --key none
+bindsym $mod+Mod1+p exec ~/.local/bin/gromit-toggle
+bindsym $mod+Ctrl+b exec gromit-mpx --clear
 bindsym $mod+Shift+a exec flatpak run org.gnome.clocks
+
+# ─── Descompresión rápida ──────────────────────────
+bindsym $mod+g exec /home/max/.local/bin/extract-rofi
 
 # ─── Multimedia ─────────────────────────────────────
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -160,6 +177,12 @@ bindsym $mod+period exec --no-startup-id playerctl next
 assign [class="firefox"] $ws2
 assign [class="Thunar"] $ws4
 assign [class="obsidian"] $ws4
+assign [title="yazi"] $ws4
+
+# ─── Telegram: cerrar modales con Escape ────────────
+bindsym $mod+Escape exec --no-startup-id ~/.local/bin/telegram-escape.sh
+for_window [class="Telegram"] focus on_window_activation smart
+for_window [class="Telegram" title=".*"] floating enable
 
 # ─── Ventanas flotantes ─────────────────────────────
 for_window [floating] move position center
@@ -172,6 +195,8 @@ for_window [window_role="task_dialog"] floating enable
 for_window [class="(?i)firefox" window_role="About"] floating enable
 for_window [class="(?i)Tomatillo"] floating enable
 for_window [class="(?i)Gnome-clocks"] floating enable
+for_window [class="(?i)Zathura"] floating enable
+for_window [title="yazi"] floating enable, resize set 1000 700, move position center
 
 show_marks no
 
@@ -212,6 +237,10 @@ popup_during_fullscreen smart
 bindsym $mod+Ctrl+plus  gaps inner current plus 5
 bindsym $mod+Ctrl+minus gaps inner current minus 5
 
+# ─── Gaps toggle ──────────────────────────────────────
+bindsym $mod+Ctrl+g gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Ctrl+Shift+g gaps inner current set 10; gaps outer current set 4
+
 # ─── Barra de estado (Polybar) ─────────────────────
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
@@ -240,13 +269,18 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 # ─── Notificaciones (dunst) ────────────────────────
 exec --no-startup-id dunst
 
+# ─── Auto-mount discos (udiskie) ────────────────────
+exec_always --no-startup-id bash -c 'nohup udiskie > /dev/null 2>&1 &'
+
 # ─── Screenshots (flameshot) ───────────────────────
 bindsym $mod+Shift+z exec --no-startup-id flameshot gui
+bindsym $mod+Mod1+z exec --no-startup-id zathura
 bindsym $mod+Shift+x exec --no-startup-id flameshot full -p ~/Pictures
 
-# ─── Portapapeles (copyq) ─────────────────────────
+# ─── Portapapeles (copyq + rofi history) ──────────
 exec --no-startup-id copyq
 bindsym $mod+Ctrl+v exec --no-startup-id copyq show
+bindsym $mod+Ctrl+Shift+v exec --no-startup-id bash -c 'copyq read all 2>/dev/null | rofi -dmenu -p "Historial" -i | head -1 | xargs -r -I{} sh -c "echo {} | copyq select"'
 
 # ─── Bloqueo de pantalla ──────────────────────────
 exec --no-startup-id xss-lock -- /home/max/.local/bin/lock-screen
